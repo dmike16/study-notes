@@ -120,7 +120,15 @@ Error message and password prompt
 
 <p>This <a class="tc-tiddlylink-external" href="http://tiddlywiki.com" rel="noopener noreferrer" target="_blank">TiddlyWiki</a> contains the following tiddlers:</p><p><ul>
 
+<li>$:/config/RelinkOnRename</li>
+
 <li>$:/core</li>
+
+<li>$:/DefaultTiddlers</li>
+
+<li>$:/favicon.ico</li>
+
+<li>$:/Import</li>
 
 <li>$:/isEncrypted</li>
 
@@ -132,11 +140,19 @@ Error message and password prompt
 
 <li>$:/state/showeditpreview</li>
 
+<li>$:/state/tab--1498284803</li>
+
 <li>$:/state/tab/sidebar--1835078512</li>
+
+<li>$:/state/toc/TableOfContents-Web Push Protocol--81657105</li>
 
 <li>$:/StoryList</li>
 
+<li>$:/temp/advancedsearch</li>
+
 <li>$:/temp/info-plugin</li>
+
+<li>$:/temp/search</li>
 
 <li>$:/themes/tiddlywiki/snowwhite</li>
 
@@ -154,6 +170,10 @@ Error message and password prompt
 
 <li>Unsubscribe</li>
 
+<li>Web Push Protocol</li>
+
+<li>Web Push VAPID</li>
+
 </ul>
 </p>
 
@@ -164,6 +184,9 @@ Error message and password prompt
 <!--~~ Ordinary tiddlers ~~-->
 
 <div id="storeArea" style="display:none;">
+<div created="20170511195821320" modified="20170511195821320" title="$:/config/RelinkOnRename">
+<pre>yes</pre>
+</div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="" description="TiddlyWiki5 core" list="readme" plugin-priority="0" plugin-type="plugin" title="$:/core" type="application/json" version="5.1.14">
 <pre>{
     &quot;tiddlers&quot;: {
@@ -8361,6 +8384,17 @@ Error message and password prompt
     }
 }</pre>
 </div>
+<div created="20170511195834616" modified="20170511195834616" title="$:/DefaultTiddlers">
+<pre>[list[$:/StoryList]]</pre>
+</div>
+<div created="20170511195817656" modified="20170511195822467" title="$:/favicon.ico" type="image/png">
+<pre>iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAABmJLR0QAAAC8ANS0uarGAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AoZFQAAp9zQDQAABtNJREFUeNrt3VuIVHUAx/HfOXO/7GVmx3VnZq+z7tquJOWqSRQhFpIWEUJUYCYo+hAYUSnRS0UQlWSIL5EWFvUkIRQVbegGPhRLPeSFUkO77E3X3XUvttfpJSjcXV13x3HP+X8/zzvHOf/z/x7POXNmjqXm41kBhrIZAhAAQAAAAQAEABAAQAAAAQAEABAAQAAAAQAEABAAQAAAAQAEABAAQAAAAQAEABAAQAAAAQAEABAAQAAAAQAEABAAQAAAAQAEABAAQAAAAQAEABAAQAAAAQAEABAAQAAAAQAz4mUI8qvU59ETZUVaE4tqod8jSeocGVfzpQF92tmnC6PjDFIeWWo+nmUY8jHQ0jPlcb1WW6oir2fKv+kdHdfLv3Vp35+XGDACcA+PpI+XlOvxsqIZ/f0nHb3aeOIvTTB0nAO4weu1pTOe/JL0ZFmxXs2UMnAE4HxLIgE9X5W44dftqk6oIexnAAnA2banY/JY1o0fNlmWtqXjDCABONv6RMEcXhtlAAnAuXyWVB30zfr1mZBfXotxJACHKvJ6ZFmzn8G2Zal4mkumIIB5z5onywABAASQb17LmhfLwDXGlyHIraTfqw2lhVpbEtXqWGTOyzt9d52O9Azqq+4BHeq6rI6RMQY5p4ep3AqRk/9G1yei2pKKaV1Jgbz2zdlrj05k9cXFfr3f1qMvuwe4VYIAbq2gbWlTsljPVZaoPhzI67/9y+Cwdv/erYPtvRrOsgkJIM97/C2pmF7JLFBZwHdL30v78Kh2nenURx19YkMSwE1XE/Rpf0Naq+ORefW+vr00oC2n2nTu71E20g3uzDCjPYW0oyKuE6sWzbvJL0lr4lGdXLVIOyrifHZAALk/1v+wMa099UmFPPN3yEIeW3vqkzrQkFKAy6cEkAvpgFcty6r1VLLYMe/56VRMR5uqlfRzlZsA5qAxElDrioxWFoUd995XFYX1/YqM6kJ8p4AAZqEu5NfXd1Td8qs8c1ER9OmbO6tUG/KxQQlg5soDXh1tqlZ50PkTpyrkV8uyGqUDHA4RwAxEbEuHl1YqFXDPXjMd9Onw0kpFbE6MCeA69t2W1LLCkOvWq6kwpL2Lk2xgApje9nRMm5Ix167f5lRMW1MxNjQBTH3Su7uuzPXr+U59mTJBTooJ4H8sSfsbUgp73D8cEY+tA41pPi0mgP88Vlqoe2MRY9b3vlhEG0oL2fAEIPktS2/WLTRuvd9etFB+bpcggM2pYlUGzfu0tCrk18ZkEQGYvvIvzuJnC91iZ1XC+HMBowNYVxJVxuB7ZerCAa2NRwnAVFvTXBPfZvgYGBtAzGvrwZIC4wNYnyhQsdcmANM8sqBQPu6Nkc+29HCigABM81CCvT9jYWgAtqT74xFm/r8eiEeN3RMaud4NkcC0D6oz8nzI51G9oU+jMTKAlS683Xmu7ioME4ApGiMBZjxjYm4ANXxRfIox8RGAKaq5H36SqiABGKPExwnw1RKG/oaQkQFEPHwNYtKY2DYBmCJMAFPsFCwCMAWPHp3M1NtC2BXCaAQAAgAIACAAgAAAAgAIACAAgAAAAgAIACAAgAAAAgAIACAAgAAAAgAIACAAgAAAAgAIACAAgAAAAgAIACCA/KkIeOURv457NY8slQe8BOBmmaBPx5Zn5OUB2ZN4bUvHltcoY9iTYmyTJv+RpmpV8HikaVUG/TrSVG1UBLZJk78yyMPxiMCwAJj8RGBsAEz+uUdQ4/IIbCY/rhXBUZdH4MoAapj8RGBqADVBn44y+YnAxACY/Df5nGCZ+yKwmfyYqaqQ+yJwTQB7FyeZ/HmKYO/iJAHMNxGe/s5YcxIMEABAAMBMuOYG8JaeQV0YGWOL5sHJwWHXrIul5uNZNik4BAIIACAAgJNgzJ7fsnR7NJDTZf48MKyRLKdrBOCEAGxLrStrc7rMyJGTGmH+cwjkBAPjE7o8Np6z5fWOjmtogtlPAA7yXe9QzpbV0jvIgBKAs3x+sX9eLgsEkBcftPXq7NDInJdzemhYB9v7GFACcJaRbFY7z3QoO4crN9lsVi+c7uTqDwE406EL/XrrfPesX//G+Ys6zOEPATjZzrOdevbXdo3fwF58dCKrbafa9NLZLgaQAJzv3T8u6f4fz6n18pXr/u0PfUNa89M5vdfWw8DlAXeD5nWwpXuKw3p0QYGaCkJa6PcqK6lrZEyt/Vf0WVe/jvUNiQ1CAACHQAABAAQAEABAAAABAAQAEABAAAABAAQAEABAAAABAAQAEABAAAABAAQAEABAACAAgAAAAgAIACAAgAAAAgAIACAAgAAAAgAIACAAgAAAAgAIACAAgAAAJ/gHX0Q8yMVVDEEAAAAASUVORK5CYII=</pre>
+</div>
+<div status="complete" title="$:/Import">
+<pre>The following tiddlers were imported:
+
+# [[icon.png]]</pre>
+</div>
 <div title="$:/isEncrypted">
 <pre>no</pre>
 </div>
@@ -8373,14 +8407,23 @@ Error message and password prompt
 <div created="20170506224318551" modified="20170506224329250" title="$:/state/Link/--1502361583/search">
 <pre></pre>
 </div>
-<div created="20170506205054589" modified="20170507103341006" title="$:/state/showeditpreview">
+<div created="20170506205054589" modified="20170511203204855" title="$:/state/showeditpreview">
 <pre>no</pre>
 </div>
-<div created="20170506202537706" modified="20170506202620355" title="$:/state/tab/sidebar--1835078512">
+<div created="20170511195505035" modified="20170511195512850" title="$:/state/tab--1498284803">
+<pre>$:/core/ui/AdvancedSearch/Shadows</pre>
+</div>
+<div created="20170506202537706" modified="20170511200829907" title="$:/state/tab/sidebar--1835078512">
 <pre>TableOfContents</pre>
 </div>
-<div list="Unsubscribe Subscribe" title="$:/StoryList">
+<div created="20170511200932399" modified="20170511200941357" title="$:/state/toc/TableOfContents-Web Push Protocol--81657105">
+<pre>close</pre>
+</div>
+<div list="[[Web Push VAPID]] [[Web Push Protocol]] GettingStarted" title="$:/StoryList">
 <pre></pre>
+</div>
+<div created="20170511195501528" modified="20170511195501528" title="$:/temp/advancedsearch">
+<pre>import</pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
 <pre>{
@@ -8395,7 +8438,7 @@ Error message and password prompt
         },
         &quot;$:/info/url/full&quot;: {
             &quot;title&quot;: &quot;$:/info/url/full&quot;,
-            &quot;text&quot;: &quot;file:///Users/dmike/Development/docs/pwapp/pwapp.html&quot;
+            &quot;text&quot;: &quot;file:///Users/dmike/Development/study-notes/pwapp/pwapp.html&quot;
         },
         &quot;$:/info/url/host&quot;: {
             &quot;title&quot;: &quot;$:/info/url/host&quot;,
@@ -8415,7 +8458,7 @@ Error message and password prompt
         },
         &quot;$:/info/url/pathname&quot;: {
             &quot;title&quot;: &quot;$:/info/url/pathname&quot;,
-            &quot;text&quot;: &quot;/Users/dmike/Development/docs/pwapp/pwapp.html&quot;
+            &quot;text&quot;: &quot;/Users/dmike/Development/study-notes/pwapp/pwapp.html&quot;
         },
         &quot;$:/info/url/search&quot;: {
             &quot;title&quot;: &quot;$:/info/url/search&quot;,
@@ -8427,6 +8470,9 @@ Error message and password prompt
         }
     }
 }</pre>
+</div>
+<div created="20170511195458537" modified="20170511195501529" title="$:/temp/search">
+<pre></pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/vanilla" description="Emphasises individual tiddlers" name="Snow White" plugin-type="theme" title="$:/themes/tiddlywiki/snowwhite" type="application/json" version="5.1.14">
 <pre>{
@@ -8634,6 +8680,12 @@ function unsubscribeUser(){
   }
 ```
 </pre>
+</div>
+<div created="20170511200835852" modified="20170511200851860" tags="TableOfContents" title="Web Push Protocol">
+<pre></pre>
+</div>
+<div created="20170511200855615" modified="20170511210824681" tags="[[Web Push Protocol]]" title="Web Push VAPID">
+<pre>''VAPID''(Voluntary Application Server Identifier) it's a system whereby an application server can identify itself to the push server.</pre>
 </div>
 
 </div>
