@@ -122,6 +122,8 @@ Error message and password prompt
 
 <li>$:/config/RelinkOnRename</li>
 
+<li>$:/config/WikiParserRules/Inline/wikilink</li>
+
 <li>$:/core</li>
 
 <li>$:/DefaultTiddlers</li>
@@ -192,6 +194,9 @@ Error message and password prompt
 <div id="storeArea" style="display:none;">
 <div created="20170511194952120" modified="20170511194952120" title="$:/config/RelinkOnRename">
 <pre>yes</pre>
+</div>
+<div created="20170515202913683" modified="20170515202913683" title="$:/config/WikiParserRules/Inline/wikilink">
+<pre>disable</pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="" description="TiddlyWiki5 core" list="readme" plugin-priority="0" plugin-type="plugin" title="$:/core" type="application/json" version="5.1.14">
 <pre>{
@@ -8408,17 +8413,17 @@ Error message and password prompt
 <div created="20170506224318551" modified="20170506224329250" title="$:/state/Link/--1502361583/search">
 <pre></pre>
 </div>
-<div created="20170506205054589" modified="20170510204912790" title="$:/state/showeditpreview">
+<div created="20170506205054589" modified="20170515203141836" title="$:/state/showeditpreview">
 <pre>no</pre>
 </div>
 <div created="20170510195131538" modified="20170510195132668" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
-<div created="20170510195043032" modified="20170510195043032" title="$:/state/tab--2112689675">
-<pre>$:/core/ui/ControlPanel/Advanced</pre>
+<div created="20170510195043032" modified="20170515202858789" title="$:/state/tab--2112689675">
+<pre>$:/core/ui/ControlPanel/Basics</pre>
 </div>
-<div created="20170510195048660" modified="20170510195124325" title="$:/state/tab-1749438307">
-<pre>$:/core/ui/ControlPanel/KeyboardShortcuts</pre>
+<div created="20170510195048660" modified="20170515202910628" title="$:/state/tab-1749438307">
+<pre>$:/core/ui/ControlPanel/Settings</pre>
 </div>
 <div created="20170510195118364" modified="20170510195121005" title="$:/state/tab-2065006209">
 <pre>$:/core/ui/ControlPanel/Saving/TiddlySpot</pre>
@@ -8426,13 +8431,13 @@ Error message and password prompt
 <div created="20170510194950384" modified="20170510194958754" title="$:/state/tab/moresidebar-401116514">
 <pre>$:/core/ui/MoreSideBar/Types</pre>
 </div>
-<div created="20170506202537706" modified="20170511194456707" title="$:/state/tab/sidebar--1835078512">
+<div created="20170506202537706" modified="20170515202847126" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/Tools</pre>
 </div>
 <div created="20170509201006077" modified="20170510194909792" title="$:/state/toc/TableOfContents-Sharing Object--81657105">
 <pre>open</pre>
 </div>
-<div list="CssStylesheet [[Publication And Escape]]" title="$:/StoryList">
+<div list="[[Thread Confinement]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -8598,7 +8603,7 @@ Error message and password prompt
 <div created="20170509200812119" modified="20170509201038849" tags="[[Sharing Object]]" title="Immutability">
 <pre></pre>
 </div>
-<div created="20170509200749902" modified="20170510205152243" tags="[[Sharing Object]]" title="Publication And Escape">
+<div created="20170509200749902" modified="20170515193616389" tags="[[Sharing Object]]" title="Publication And Escape">
 <pre>Publishing an object means making it available to code outside of its current scope. An object that is published when it should not have been is said to be //escaped//. Publishing can happen in many ways:
 
 *store a reference to it in a public static field
@@ -8609,6 +8614,11 @@ Error message and password prompt
 &lt;&lt;&lt;
 Publisinh an object may indirectly publish other
 &lt;&lt;&lt;
+
+&lt;&lt;&lt;
+Do not allow the //this// reference to escape during construction
+&lt;&lt;&lt;
+
 
 ---
 @@.foot-note (*)// an aline method is one whose behavior is not fully specified. These include method in other classes as overrideable methods in the same class.//
@@ -8656,8 +8666,13 @@ To show the notification we use `self.registration.showNotification` method of [
 
 &lt;/div&gt;</pre>
 </div>
-<div created="20170509200759992" modified="20170509201030496" tags="[[Sharing Object]]" title="Thread Confinement">
-<pre></pre>
+<div created="20170509200759992" modified="20170515203625561" tags="[[Sharing Object]]" title="Thread Confinement">
+<pre>One way to avoid synchronization, when accessing shared data, is to confine data to a single thread.
+
+# ''Ad-hoc Confinement''. The responsabiity for mantain thread confinement is of implementation, so this strategy is fragile. A special case of this strategy is volatile variable. Is's safe to perform read-modify-write operations on shared volatile variable as long as you ensure that the variable is only written by one thread.
+# ''Stack Confinement''. It's a special case of thread confinemt in which an object can be access onlu through local variable.
+# ''ThreadLocal''.  Java class that allow to associate a per-thread value wiht a value-holding object. To maintaint a separete copy of the value TheadLocal provides `get` and `set` method, so a `get` return the most recent value fro the current thread.
+</pre>
 </div>
 <div created="20170509200740292" modified="20170509211116967" tags="[[Sharing Object]]" title="Visibility">
 <pre>The visibility in  a concurrent program is not so obvious. So to ensure it must use synchronization.
