@@ -8413,7 +8413,7 @@ Error message and password prompt
 <div created="20170506224318551" modified="20170506224329250" title="$:/state/Link/--1502361583/search">
 <pre></pre>
 </div>
-<div created="20170506205054589" modified="20170515203141836" title="$:/state/showeditpreview">
+<div created="20170506205054589" modified="20170523203529454" title="$:/state/showeditpreview">
 <pre>no</pre>
 </div>
 <div created="20170510195131538" modified="20170510195132668" title="$:/state/sidebar">
@@ -8431,13 +8431,13 @@ Error message and password prompt
 <div created="20170510194950384" modified="20170510194958754" title="$:/state/tab/moresidebar-401116514">
 <pre>$:/core/ui/MoreSideBar/Types</pre>
 </div>
-<div created="20170506202537706" modified="20170515202847126" title="$:/state/tab/sidebar--1835078512">
-<pre>$:/core/ui/SideBar/Tools</pre>
+<div created="20170506202537706" modified="20170523194420090" title="$:/state/tab/sidebar--1835078512">
+<pre>TableOfContents</pre>
 </div>
 <div created="20170509201006077" modified="20170510194909792" title="$:/state/toc/TableOfContents-Sharing Object--81657105">
 <pre>open</pre>
 </div>
-<div list="[[Thread Confinement]]" title="$:/StoryList">
+<div list="[[Safe Publication]] Immutability" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -8600,8 +8600,25 @@ Error message and password prompt
  font-size:85%;
 }</pre>
 </div>
-<div created="20170509200812119" modified="20170509201038849" tags="[[Sharing Object]]" title="Immutability">
-<pre></pre>
+<div created="20170509200812119" modified="20170523201903464" tags="[[Sharing Object]]" title="Immutability">
+<pre>An immutable object is one which state cannot be changed after construction.
+
+&lt;&lt;&lt;
+An immutable object is always thread-safe
+&lt;&lt;&lt;
+
+An object is immutable if:
+
+* its state cannot be modified after construction;
+* all fields are final
+* it's properly constructed (the //this// reference does not escape during construction)
+
+&lt;&lt;&lt;
+Just as is a good practice to make al the fileds private unless they need greater visibility, it is a good practice to make all field final unless they need to be mutable.
+&lt;&lt;&lt;
+
+
+</pre>
 </div>
 <div created="20170509200749902" modified="20170515193616389" tags="[[Sharing Object]]" title="Publication And Escape">
 <pre>Publishing an object means making it available to code outside of its current scope. An object that is published when it should not have been is said to be //escaped//. Publishing can happen in many ways:
@@ -8627,8 +8644,26 @@ Do not allow the //this// reference to escape during construction
 <div created="20170506210837782" modified="20170506210900470" tags="" title="Push Server">
 <pre>TODO</pre>
 </div>
-<div created="20170509200818179" modified="20170509201044625" tags="[[Sharing Object]]" title="Safe Publication">
-<pre></pre>
+<div created="20170509200818179" modified="20170523204726864" tags="[[Sharing Object]]" title="Safe Publication">
+<pre>We need safe publication when we want share an object between thread in a safely way. Simply storing an object into a public filed it's not a safe publishing mechanism, becouse another thread can see the object in a inconsistent state or not fully constructed. When a reference to an object become visible to another thread does not mean that the state of the object is visible to the consuming thread; so synchnization is needed.  
+
+But if the object is [[immutable|Immutability]]  we don't need synchronization to publish the object.
+
+&lt;&lt;&lt;
+[[Immutable|Immutability]] object can be safely published without synchronitation.
+&lt;&lt;&lt;
+
+For mutable object safe publication requires synchronization, for both consuming and producer thread.
+
+To publish an object safely, both the reference to the object and the object's state must be visible to other thread at same time. A properly constructed object can be safely published by:
+
+* initializing an object from a static initializer
+* storing a reference to it into a volatile or atomic reference
+* storing a reference to it into a final field of properly constructed object
+* storing a reference to it into a field guarded by a lock
+
+If an object is mutable, safe publication ensure only visibility of the published state so synchronization must be used every time a thread accesses the obejct.
+</pre>
 </div>
 <div created="20170509195955124" modified="20170509200942921" tags="TableOfContents" title="Sharing Object">
 <pre>In concurrent programs is necassary to correctly mange access to shared object.  The concept that we have to deal with are:
