@@ -152,6 +152,8 @@ Error message and password prompt
 
 <li>$:/state/tab/sidebar--1835078512</li>
 
+<li>$:/state/toc/TableOfContents-Composing Object--81657105</li>
+
 <li>$:/state/toc/TableOfContents-Sharing Object--81657105</li>
 
 <li>$:/StoryList</li>
@@ -161,6 +163,10 @@ Error message and password prompt
 <li>$:/themes/tiddlywiki/snowwhite</li>
 
 <li>$:/themes/tiddlywiki/vanilla</li>
+
+<li>A Thread-Safe Class</li>
+
+<li>Composing Object</li>
 
 <li>CssStylesheet</li>
 
@@ -8413,7 +8419,7 @@ Error message and password prompt
 <div created="20170506224318551" modified="20170506224329250" title="$:/state/Link/--1502361583/search">
 <pre></pre>
 </div>
-<div created="20170506205054589" modified="20170523203529454" title="$:/state/showeditpreview">
+<div created="20170506205054589" modified="20170711201147655" title="$:/state/showeditpreview">
 <pre>no</pre>
 </div>
 <div created="20170510195131538" modified="20170510195132668" title="$:/state/sidebar">
@@ -8434,10 +8440,13 @@ Error message and password prompt
 <div created="20170506202537706" modified="20170523194420090" title="$:/state/tab/sidebar--1835078512">
 <pre>TableOfContents</pre>
 </div>
+<div created="20170711200535323" modified="20170711200549717" title="$:/state/toc/TableOfContents-Composing Object--81657105">
+<pre>close</pre>
+</div>
 <div created="20170509201006077" modified="20170510194909792" title="$:/state/toc/TableOfContents-Sharing Object--81657105">
 <pre>open</pre>
 </div>
-<div list="[[Safe Publication]] Immutability" title="$:/StoryList">
+<div list="[[Composing Object]] [[A Thread-Safe Class]] [[Safe Publication]] Immutability" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -8594,6 +8603,25 @@ Error message and password prompt
         }
     }
 }</pre>
+</div>
+<div created="20170711200523302" modified="20170711204709057" tags="[[Composing Object]]" title="A Thread-Safe Class">
+<pre>The design process of a thread safe class should include these three basic elements:
+
+* identify the variable that form the object's state
+* identify the invariants that constraint the state variables
+* Estabilish a policy for managing concurrent access to object's state, that policy defines how the object can access it's state without vioating its invariant or post-conditions.
+
+Make a class thread safe means ensuring that its invariant remain valid under concurrent access; this require reasoning about object and variable state space. Smaller this space is and simpler is to reason about.
+
+Many classes have invariant and operations can have post-conditions, those create additional  synchronization  or encapsulation requirements. If certain states are invalid, then the underlying variable must be encapsulated. If an operation has invalid state transition it must be made atomic. A class could have a multivariable invariant too tha create atomicity requeriment.
+
+
+ 
+</pre>
+</div>
+<div created="20170711200307004" modified="20170711200531865" tags="TableOfContents" title="Composing Object">
+<pre>!![[A Thread-Safe Class]]
+{{A Thread-Safe Class}}</pre>
 </div>
 <div created="20170510204146604" modified="20170510204905674" tags="$:/tags/Stylesheet" title="CssStylesheet" type="text/css">
 <pre>.foot-note{
