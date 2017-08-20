@@ -3,7 +3,11 @@ namespace :book do
   desc 'prepare build'
   task :prebuild do
     Dir.mkdir 'target' unless Dir.exists? 'target'
+    Dir.mkdir 'target/images' unless Dir.exists? 'target/images'
+    Dir.glob("*/book/images/*").each do |image|
+      FileUtils.copy(image,"target/images/"+File.basename(image))
     end
+  end
 
   desc 'build bem'
   task :bem => :prebuild do
