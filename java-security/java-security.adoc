@@ -10,7 +10,7 @@
 :includedir: book
 :source-highlighter: highlightjs
 :sectlinks:
-:icons: fonts
+:icons: font
 :icon-set: fa
 
 include::{includedir}/app-security.adoc[]

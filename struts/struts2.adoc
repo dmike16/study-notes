@@ -8,10 +8,9 @@
 :toc: left
 :toclevels: 2
 :includedir: book
-:imagesdir: {includedir}/images
 :source-highlighter: highlightjs
 :sectlinks:
-:icons: fonts
+:icons: font
 :icon-set: fa
 
 include::{includedir}/big-picture.adoc[]

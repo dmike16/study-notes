@@ -10,7 +10,7 @@
 :includedir: book
 :source-highlighter: highlightjs
 :sectlinks:
-:icons: fonts
+:icons: font
 :icon-set: fa
 
 BEM (Block, Element, Modifier) is a component-based approach to web development,
