@@ -1,0 +1,39 @@
+== Java Application Security
+:sectanchors:
+
+The term securty lead us to expect that  a java program would be:
+
+Safe from malevolent programs:: Program should not be able to harm user's computer enviroment
+
+Non-intrusive:: Program should prevent discover private information on user's computer
+
+Authenticated:: The identies of the parties involved in the program should be verifiied
+
+Encrypted:: Data that the program send and recives should be encrypted
+
+Autided:: Sensitive operation should be logged
+
+Well-defined:: A well-defined security specification should be followed
+
+Verified:: Rules of operations should be verified
+
+Well-behaved:: Programs should prevent from consuming many system resources
+
+All of these features are parte of java security model.
+
+The elements of java security model are defined by:
+
+Bytecode verifier:: Ensure that the java class files follow the rules of java
+programming. Not of files are subject to bytecode verifier
+
+Class loader:: One o many class loaders load all java class. The class loader can set permission on those class.
+
+Access controller:: Allow or deny access from the core API to the operation system,
+base upon policies set by the user or admistrator.
+
+Security Manager:: It defers action to the access controller
+
+Security Package:: Allow the developer to add securty features into the application
+
+Key Database:: Is a set of keys used by the security infrastructure to create or
+verify digital signature.
