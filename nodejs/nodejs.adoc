@@ -10,5 +10,7 @@
 :includedir: book
 :source-highlighter: highlightjs
 :sectlinks:
+:icons: fonts
+:icon-set: fa
 
 include::{includedir}/event-loop.adoc[]

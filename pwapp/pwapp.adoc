@@ -1,0 +1,23 @@
+= Progressive Web App: PWAPP
+:author: dmike
+:email: cipmiky@gmail.com
+:revnumber: 1.0
+:revdate: August 19 2017
+:revremark: Concepts of {doctile}
+:doctype: book
+:toc: left
+:toclevels: 2
+:includedir: book
+:imagesdir: {includedir}/images
+:source-highlighter: highlightjs
+:sectlinks:
+:icons: fonts
+:icon-set: fa
+
+include::{includedir}/register-service-worker.adoc[]
+
+include::{includedir}/subscribe.adoc[]
+
+include::{includedir}/unsubscribe.adoc[]
+
+include::{includedir}/web-push-protocol.adoc[]

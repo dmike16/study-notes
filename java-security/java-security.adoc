@@ -1,0 +1,16 @@
+= Java Security
+:author: dmike
+:email: cipmiky@gmail.com
+:revnumber: 1.0
+:revdate: August 19 2017
+:revremark: Concepts of {doctile}
+:doctype: book
+:toc: left
+:toclevels: 2
+:includedir: book
+:source-highlighter: highlightjs
+:sectlinks:
+:icons: fonts
+:icon-set: fa
+
+include::{includedir}/app-security.adoc[]
