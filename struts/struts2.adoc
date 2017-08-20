@@ -1,0 +1,19 @@
+= Struts2
+:author: dmike
+:email: cipmiky@gmail.com
+:revnumber: 1.0
+:revdate: August 20 2017
+:revremark: Concepts of {doctile}
+:doctype: book
+:toc: left
+:toclevels: 2
+:includedir: book
+:imagesdir: {includedir}/images
+:source-highlighter: highlightjs
+:sectlinks:
+:icons: fonts
+:icon-set: fa
+
+include::{includedir}/big-picture.adoc[]
+
+include::{includedir}/interceptors.adoc[]
