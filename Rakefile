@@ -71,6 +71,17 @@ namespace :book do
     puts "=== PDF output at target/pwapp.pdf "
   end
 
+  desc 'build struts2'
+  task :struts2 => :prebuild do
+    puts "=== [STRUTS2] Converting to HTML..."
+    `bundle exec asciidoctor struts/struts2.adoc --destination-dir=target`
+    puts "=== HTML output at target/pwapp.html"
+
+    puts "Converting to PDF... (this one takes a while)"
+    `bundle exec asciidoctor struts/struts2.adoc --destination-dir=target --backend=pdf --require=asciidoctor-pdf `
+    puts "=== PDF output at target/struts2.pdf "
+  end
+
   desc 'build all study notes'
   task :all  => %W[bem concurrency javasec javaee nodejs pwapp] do
     puts "=== ALL DONE...! BYE...!"
