@@ -4,7 +4,7 @@
 Interceptors can execute code before and after an action is execuded. They are
 configurable and can be plug in and out in the struts.xml
 
-image::interceptor.png[]
+image::images/interceptor.png[]
 
 The interceptors might keep an *Action* from firing, they can change the state
 of an *Action*. They are defined in a stack that specifies the order of execution.

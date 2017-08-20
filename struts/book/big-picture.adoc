@@ -1,7 +1,7 @@
 == Big Picture
 :sectanchors:
 
-image::big-pic.png[]
+image::images/big-pic.png[]
 
 .Flow
 . Request go to ServletContainer
