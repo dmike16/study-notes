@@ -1,0 +1,20 @@
+= Java EE
+:author: dmike
+:email: cipmiky@gmail.com
+:revnumber: 1.0
+:revdate: August 22 2017
+:revremark: Concepts of {doctitle}
+:doctype: book
+:toc: left
+:toclevels: 2
+:includedir: book
+:source-highlighter: highlightjs
+:sectlinks:
+:icons: font
+:icon-set: fa
+
+include::{includedir}/jsp.adoc[]
+
+include::{includedir}/session.adoc[]
+
+include::{includedir}/el.adoc[]

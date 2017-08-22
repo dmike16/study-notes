@@ -1,0 +1,240 @@
+== Expression Language
+:sectanchors:
+
+=== Base Syntax
+
+Immediate Evalutation:: In this case the EL expression are evalutated during page rendering. The syntax is
++
+[source]
+----
+${expr}
+----
++
+to use this syntax for other purpose in jSP we need to escape the dollar sing:
++
+[source]
+----
+\${not an el expr}
+&#36;{not an el expr}
+----
+
+Deferred Evalutation:: This syntax it's used in JSF page. In this case the expression
+can be evalutated either when the page is rendered or during a postback.
+In JSP the deferred syntax, which is legal only on tag's attributes,
+can be used to defer the evalutation of EL expression later in the rendering
+process of the tag.
++
+[source]
+----
+#{expr}
+----
++
+To use this syntax for other purpose we need to escape the hash sing,
+or set up a configuration in a `jsp-property-group`.
++
+[source]
+----
+\#{not an EL expr}
+$#35:{not an EL expr}
+<deferred-syntax-allowed-as-literal>true</deferred-syntax-allowed-as-literal>
+----
+
+=== EL Syntax
+
+The EL expressions have theri own syntax. The primary rule is that it should evaluate to some value.
+
+[TIP]
+====
+Although you cannot declare variables within an EL expression, you can assign
+variable in EL. Using the `=` operator.
+[source]
+----
+${x=5}
+----
+====
+
+==== Reserved Keyword
+
+Like other language there are some reserved keyword:
+
+* `true`,`false`
+* `or`,`not`,`and`
+* `null`
+* `instanceof`
+* `empty`
+* `div`,`mod`
+* `eq`,`ne`,`lt`,`gt`,`le`,`ge`
+
+==== Operator Precedence
+
+Like other languages the operators have a precedece:
+
+. `[]`,`.`
+. `()`
+. unary `-`,`!`,`not`,`empty`
+. `*`,`/`,`div`,`%`,`mod`
+. `+`,`-` binatry
+. `+=` string
+. `<`,`lt`,`>`,`gt`,`<=`,`le`,`>=`,`ge`
+. `==`,`eq`,`!=`,`ne`
+. `&&`,`and`
+. `||`,`or`
+. `?`,`:`
+. `->` lambda
+. `=`
+. `;`
+
+NOTE: To test equality and relational comparison in EL between object we can simply
+use equality operator and comparison operators.
+For comparisons operator the two object need to implements java _Comparable_ interface.
+
+==== Literal Value
+
+We can define literal in EL expression:
+
+* boolean _true_,_false_
+* _null_ reference
+* string literal wiht single or double quotes syntax
+* numeric literal, and can do aritemetic between
+* char,byte,short
+* collection literal
+** Set `{1,2,x}`
+** List `[1,3,4,5]`
+** Map `{'one':1, 2:'two', 'list': [1,2,3]}`
+
+==== Obect Properties and Method
+
+El expression provides a simplitied syntax to access the javaBean properties.
+
+[source]
+----
+${bean.prop}
+${bean["prop"]}
+----
+
+We can also call mehod
+
+[source]
+----
+${bean.getProp()}
+----
+
+==== EL Functions
+
+In EL, a function is a special tool mapped to a static method on a class.
+
+[source]
+----
+${[ns] : [fn]([a1,[a2,[--]]]}
+----
+
+* ns: namespace
+* fn: function name
+* a1..an: arguments
+
+Functions are defined with Tag Library Descriptors(TLDs).
+
+==== Static Filed and Methods
+
+In EL you can access Static field and method.And can use constructor.
+
+[source]
+----
+${Integer.reverse(64)}
+${org.dmike.User()}
+----
+
+==== Enums
+
+You can use enum constant in EL expression.
+
+[source]
+----
+${dayOfWeek == java.time.DayOfWeek.SATURDAY}
+----
+
+==== Lambda Expression
+
+We can use lambda expression in EL. Their syntax is simlar to Java 8 lambda expression,
+but in the body od EL lambda expression can appair only those statement valid
+in a EL expression. These lambda expression can be called immediately or stored in a variable.
+
+[source]
+----
+${((a,b)->a+b)(4,7)}
+${v = (a,b)->a+b; v(4,7)}
+----
+
+==== Collections
+
+Collecions can be accessed using `[]` or `.` operators.
+
+* Map : `${map["username"]}` or `${map.username}`
+* List : `${list[0]}` or `${list["0"]}`.
+* Sets and Queque we must use iterator.
+
+=== Placing EL Expression
+
+El expression can not be put inside page directives or JSP declarations, scriptlets, expression.
+Other than that el espression can be pute anywhere in the page.
+
+[source,xml]
+----
+The user will see ${expr} text and will know that ${expr} is good.
+
+<input type="text" name="something" value="${expr}" />
+
+<c:url value="/something/${expr}/${expr}" />
+<c:redirect url="${expr}" />
+
+<script type="text/javascript" lang="javascript">
+ var employeeName = '${expr}';
+ var booleanValue = ${expr};
+ var numericValue = ${expr};
+</script>
+<style type="text/css">
+span.error {
+ color: ${expr};
+ background-image: url('/some/place/${expr}.png');
+}
+</style>
+----
+
+=== Scopes in Expression Language
+
+Expression Language define some default variable and the concept of implicit scope.
+
+[NOTE]
+.El Scopes
+====
+Different scopes:
+
+* request scope: begins when the server recives the request from user's broswer
+and end when the request complets
+* session scope: persist between request until the session is invalidated
+* page scope: encapsulate attributes for a particular JSP page and request.
+We can access this scope with _JspContext_ or _PageContext_ object
+* application scope: existing across all request, sessions, JSP pages and Servlets.
+We can access with _ServletContext_.
+====
+
+Implicit El Scope:: It's used to autoresolve a variable:
++
+. it checks if the variable is one of the 11 implicit variables
+. If not, checks in page scope
+. if not, checks in request scope
+. if not, checks in session scope
+. if not, checks in application scope
+. if not found raise and error
+
+Implicit El Variables:: 11 implict varialbles is defined
++
+* _pageContext_ is an instance of PageContext, it's not a map.
+* _pageScope_ is Map<String,Obejct> all attributes bind to PageContext
+* _requestScope_ is Map<String,Object> all attributes bind to ServletRequest
+* _sessionScope_ is Map<String,Object> all attributes bind to session
+* _applicationScope_  is Map<String,Object> all attributes bind to ServletContext
+* _param_ and _paramValues_ are Map<String,String> and Map<String,String[]>
+* _header_ and _headerValues_ are Map<String,String> and Map<String,String[]>
+* _initParam_ is  Map<String,String>  containts all the init parametrs from ServletContext
+* _cokkie_ is Map<String,javax.servlet.http.Cookie>

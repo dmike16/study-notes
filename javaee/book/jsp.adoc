@@ -1,0 +1,193 @@
+== JSP
+:sectanchors:
+
+Jsp combine java code and HTML tags. A jsp is really a fancy servlet, it compiled
+by the container in a Servlet class, which implementation depends on the contanair type.
+In some container is compiled once when the first request to jsp arrives,
+in other we can set that every jsp is compiled at application deployed.
+
+Default  jsp have content-type of _text/html_ and a character encoding of
+_ISO-8859-1_. This character encoding is not useful for web app, so at minimum a
+jsp should have this directive:
+
+[source,xml]
+----
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+----
+
+=== Directives, Declarations, Scriptlets, and Expressions
+
+In addition to HTML and JSP tags there are other structure avaible in jsp that define a JSP language:
+
+[source]
+----
+<%@ this is a directive %>
+<%! This is a declaration %>
+<% this is a scriptlet %>
+<%= this is an expression %>
+----
+
+==== Directive
+
+Are used to direct the jsp interpreter to perform an action or make assumption
+about a file, to import some class, include other jsp,include tags library...
+The directives begin with `<%@` and end with `%>`.  There are three categories:
+
+Page:: This directive control how the JSP is translated , rendered on the client.
+Some attribute are
++
+* `contentType` -> default to text/html
+* `import` -> to import java class into the page
+* `language` -> the language used, default to java
+* `pageEncoding` -> the encoding of the page
+* `session` -> true o false, if false the session is not available to the page
+* `isELIgnore` -> true the EL is disable, default to false
+* `buffer`  -> it's the size of the jsp buffer or none
+* `autoFlush` -> true o false, if true we the buffer is full the output is send to the client
+* `errorPage` -> if a error occurs the request is forward to that page
+* `isErrorPage` -> Set the current jsp as an error page and make available the `exception` variable
+* `isThreadSafe` -> deafult to true, a jsp servler must be thread safe
+* `extend` -> specifies which class the jsp should extend
+
+Include:: This directive is used to statically include other jsp
++
+[source,xml]
+----
+<%@ include file="/path/to/some/file.jsp" %>
+----
+
+Include Tag Lib:: We use this directive to include a tag lib
++
+[source,xml]
+----
+<%@ taglib uri="http:_java.sun.com/jsp/jstl/core" prefix="c" %>
+----
+
+==== Declaration
+
+It's used to declare something within the JSP servlet class, we can defined instance
+variable, instance method, inner class.
+
+==== Using Scriptlets
+
+They containt  some java code, but this code is inject inside the `_jspService` method.
+So we can use all java structure that can be used inside a method body.
+A class, a method a variable defined in a [[declaration |Declaration]] can be
+used in a scriptlet, but not vice-versa.
+
+==== Using Expression
+
+They contain some java code that return something that can be print to the client
+output. Any code that can be on the rigth side of an assignemet can be used.
+
+=== Using <jsp> Tag
+
+All jsp support a special kind of tag with XLMNS of `jsp`:
+
+* `<jsp:include>` -> this tag differ from *include directive*.
+It's a dynamic inclusion, at runtime the request is temporally forward to another jsp,
+the results outputing is written to the response and then the control  come back to the first jsp
+* `<jsp:forward/>` -> forward the request to another jsp, but the control doesn't return back
+* `<jsp:useBean>` -> instantiates a class to create a javaBean that is visible to
+other jsp tag and structure like scriptels and expression
+
+=== Using java in jsp
+
+Jsp file have some _implicit_ variables avaible for use in scriptles and expression.
+These variables have method scope.
+
+[source,java]
+----
+public void _jspService(final javax.servlet.http.HttpServletRequest request,
+final javax.servlet.http.HttpServletResponse response)
+throws java.io.IOException, javax.servlet.ServletException
+{
+final javax.servlet.jsp.PageContext pageContext;
+javax.servlet.http.HttpSession session = null;
+final javax.servlet.ServletContext application;
+final javax.servlet.ServletConfig config;
+javax.servlet.jsp.JspWriter out = null;
+final java.lang.Object page = this;
+javax.servlet.jsp.JspWriter _jspx_out = null;
+javax.servlet.jsp.PageContext _jspx_page_context = null;
+try {
+response.setContentType("text/html;charset=UTF-8");
+pageContext = _jspxFactory.getPageContext(this, request, response,
+null, true, 8192, true);
+_jspx_page_context = pageContext;
+application = pageContext.getServletContext();
+config = pageContext.getServletConfig();
+session = pageContext.getSession();
+out = pageContext.getOut();
+_jspx_out = out;
+...
+}
+...
+}
+----
+
+* *request and response* -> `HttpServletRequest` and `HttpServlerResponse`.
+ We should not call `getWriter` or `getOutputStream`
+* *session* -> instance of `HttpSession`
+* *out* -> instance of `JspWriter`
+* *application* -> instance of `ServletContext`
+* *config* -> instance of `ServletConfig`
+* *pageContext* -> instance of `PageContext`
+* *page* -> instance of `this`
+* *exception* -> avlaible only inside an errorPage
+
+=== Configure jsp in web descriptor
+
+Jsp can be configured inside the web deployement descriptor.
+
+[source,xml]
+----
+<jsp-config>
+  <jsp-property-group>
+    <url-pattern>*.jsp</url-pattern>
+    <url-pattern>*.jspf</url-pattern>
+    <page-encoding>UTF-8</page-encoding>
+    <scripting-invalid>false</scripting-invalid>
+    <include-prelude>/WEB-INF/jsp/base.jspf</include-prelude>
+    <trim-directive-whitespaces>true</trim-directive-whitespaces>
+    <default-content-type>text/html</default-content-type>
+  </jsp-property-group>
+</jsp-config>
+----
+
+Tree of jsp config tags:
+
+* `<jsp-config>` containt one or more
+** `<jsp-property-group>` used to differetiate property for differten jsp groups, can contain
+*** `<url-pattern>` the pattern to which apply the properties. If a file match a url in both servlet-mapping and jsp-prop the most specific will be applied, in case that are equal the jsp pattern will win, the same for files that match two jsp-groups. If a file match more than one property group and more than one contain `<include-prelude>` or `<include-code>` rules, the include rules from all jsp are applied.
+*** `<include-prelude>` include a jsp at begin of every jsp that match the pattern
+*** `<include-code>` include a jsp at end of evry jsp that match the pattern
+*** `<page-encoding>` set the page encodinf of matching jsp
+*** `<default-content-type>` set the default conten type of the matching jsp
+*** `<trim-directive-whitespace>`  tell the jsp inspector to remove any white space only text created from directive,scriptels or expression
+*** `<scripting-invalid>` disable java in jsp
+*** `<el-ignored>` disable el expression
+*** `<is-xml>` current jsp is a JSP Document
+*** `<buffer>` similar to buffer directive
+*** `<error-on-undeclared-namespace>` indicating whenever a error is raised if a tag with unknow namespace is used
+
+The tags must appear in a specific order:
+
+[source,xml]
+----
+<url-pattern>, <el-ignored>,
+<page-encoding>, <scripting-invalid>, <is-xml>, <include-prelude>, <include-coda>,
+<deferred-syntax-allowed-as-literal>, <trim-directive-whitespace>,
+<default-content-type>, <buffer>, <error-on-undeclared-namespace>
+----
+
+=== Forwarding a request
+
+The common patter is to have a servlet that acept the request, process the data
+and then forward the view to a jsp.
+
+[source,java]
+----
+request.getRequestDispatcher("/WEB-INF/jsp/view/ticketForm.jsp")
+.forward(request, response);
+----
