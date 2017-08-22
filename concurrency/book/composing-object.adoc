@@ -1,0 +1,21 @@
+== Composing Object
+:sectanchors:
+
+=== Thread Safe Class
+
+The design process of a thread safe class should include these three basic elements:
+
+* identify the variable that form the object's state
+* identify the invariants that constraint the state variables
+* Estabilish a policy for managing concurrent access to object's state, that policy
+defines how the object can access it's state without vioating its invariant or post-conditions.
+
+Make a class thread safe means ensuring that its invariant remain valid under concurrent
+access; this require reasoning about object and variable state space. Smaller this
+space is and simpler is to reason about.
+
+Many classes have invariant and operations can have post-conditions, those create
+additional  synchronization  or encapsulation requirements. If certain states are
+invalid, then the underlying variable must be encapsulated. If an operation has
+invalid state transition it must be made atomic. A class could have a multivariable
+invariant too tha create atomicity requeriment.
