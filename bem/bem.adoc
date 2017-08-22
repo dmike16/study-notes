@@ -3,7 +3,7 @@
 :email: cipmiky@gmail.com
 :revnumber: 1.0
 :revdate: August 13 2017
-:revremark: Concepts of {doctile}
+:revremark: Concepts of {doctitle}
 :doctype: book
 :toc: left
 :toclevels: 2
