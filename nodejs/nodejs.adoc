@@ -12,5 +12,8 @@
 :sectlinks:
 :icons: font
 :icon-set: fa
+:docinfo:
 
 include::{includedir}/event-loop.adoc[]
+
+include::{includedir}/backpressuring.adoc[]
