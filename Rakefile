@@ -97,15 +97,29 @@ namespace :book do
     end
     puts "=== [STRUTS2] Converting to HTML..."
     `bundle exec asciidoctor struts/struts2.adoc --destination-dir=target`
-    puts "=== HTML output at target/pwapp.html"
+    puts "=== HTML output at target/struts2.html"
 
     puts "Converting to PDF... (this one takes a while)"
     `bundle exec asciidoctor struts/struts2.adoc --destination-dir=target --backend=pdf --require=asciidoctor-pdf `
     puts "=== PDF output at target/struts2.pdf "
   end
 
+  desc 'build Broswer Optimization'
+  task :bronet => :prebuild do
+    Dir.glob("./bronet/images/*").each do |image|
+      FileUtils.copy(image,"target/images/"+File.basename(image))
+    end
+    puts "=== [BROSWER NETWORKING] Converting to HTML..."
+    `bundle exec asciidoctor bronet/bronet.adoc --destination-dir=target`
+    puts "=== HTML output at target/bronet.html"
+
+    puts "Converting to PDF... (this one takes a while)"
+    `bundle exec asciidoctor bronet/bronet.adoc --destination-dir=target --backend=pdf --require=asciidoctor-pdf `
+    puts "=== PDF output at target/bronet.pdf "
+  end
+
   desc 'build all study notes'
-  task :all  => %W[bem concurrency javasec javaee nodejs pwapp struts2] do
+  task :all  => %W[bem concurrency javasec javaee nodejs pwapp struts2 bronet] do
     puts "=== ALL DONE...! BYE...!"
   end
   CLOBBER.include('target')
