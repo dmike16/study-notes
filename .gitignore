@@ -4,3 +4,4 @@ Gemfile.lock
 target/
 build/
 .gradle/
+buildSrc/
