@@ -34,7 +34,7 @@
 plugins{
   id 'ear'
 }
-group = 'org.dmike.xxx'
+group = gup
 /******************************************************************************
 * To use custom logger read the source code in customClass/logging
 *******************************************************************************/
@@ -48,7 +48,7 @@ allprojects {
 *******************************************************************************/
   task realese(dependOn: 'assemble') {
     doLast{
-      logger.quiet("Realese Project $project.name v.$version")
+      logger.quiet("Realese Project $gup $project.name $version")
     }
   }
 /******************************************************************************
@@ -90,7 +90,7 @@ subprojects{
 * Set the dependency of the root project.
 * This ear has a deploy configuration dependency from the subproject1
 *******************************************************************************/
-dependecies{
+dependencies{
   deploy project(':project1')
 }
 

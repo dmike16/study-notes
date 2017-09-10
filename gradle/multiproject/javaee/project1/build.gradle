@@ -1,6 +1,7 @@
 plugins{
   id 'java'
 }
+group = gup
 /******************************************************************************
 * With Gradle we have fine controllor over dependecies thanks to configurations.
 * For example we can create a configuration and assign to it an artifact build

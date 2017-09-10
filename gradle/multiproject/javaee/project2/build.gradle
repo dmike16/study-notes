@@ -1,9 +1,10 @@
 plugins{
   id 'java'
 }
+group = gup
 /******************************************************************************
 * Can define deps from other project with specific configuration
 *******************************************************************************/
-dependecies{
+dependencies{
   compile project(path:':project1',configuration: 'api')
 }
