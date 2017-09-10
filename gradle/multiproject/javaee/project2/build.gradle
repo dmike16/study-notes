@@ -1,0 +1,9 @@
+plugins{
+  id 'java'
+}
+/******************************************************************************
+* Can define deps from other project with specific configuration
+*******************************************************************************/
+dependecies{
+  compile project(path:':project1',configuration: 'api')
+}

@@ -1,0 +1,19 @@
+plugins{
+  id 'java'
+}
+/******************************************************************************
+* With Gradle we have fine controllor over dependecies thanks to configurations.
+* For example we can create a configuration and assign to it an artifact build
+* with a specific task.
+*******************************************************************************/
+configurations{
+  api
+}
+task apiJar(type: Jar){
+  baseName = 'api'
+  from sourceSets.main.output
+  include('org/dmike/api/**')
+}
+artifacts{
+  api apiJar
+}
