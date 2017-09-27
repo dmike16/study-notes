@@ -1,0 +1,173 @@
+#! /bin/sh
+#
+#  Author       : dmike
+#  Date         : 23 September 2017
+#  Description  : Bash script for setup angular application using webpack
+#    This script will create npm package.json, download all dependencies
+#    and setup typescript compiler configuration file plus three webpack
+#    config.js [common,developemnt,prodaction].
+#
+#  Entry Point  : Main function
+# ============================================================================ #
+
+source webpack/utils.bash
+
+E_BADARGS=85
+E_COMMAND_NOT_FOUND=127
+
+function _exit_code() {
+  case $1 in
+    0)
+    ;;
+    ${E_BADARGS})
+      webpack__error "Bad Arguments: $2"
+      exit $1
+    ;;
+    ${E_COMMAND_NOT_FOUND})
+      webpack__error "Command $2 not found"
+      exit $1
+    ;;
+    *)
+      webpack__error "Script Error: $2"
+      exit $1
+    ;;
+  esac
+}
+
+function _build_tree() {
+  local config=${1}/config
+  local src=${1}/src
+  local app=${src}/app
+  local assets=${1}/assets
+  local css=${assets}/css
+  local images=${assets}/images
+
+  webpack__info "Setup Project ${1}"
+
+  mkdir -p ${1}
+  _exit_code $? "mkdir"
+  webpack__info "Create direcotry ${1}"
+
+  webpack__continue
+
+  if [[ -e "./${1}/package.json" ]]
+    then
+      webpack__info "Project already initialized. Use npm i --save[-dev] [package] \
+       to install new dependencies"
+  else
+      webpack__package_json "$1" "$2" "$3" "$4"
+      _exit_code $? "webpack__package_json"
+
+      webpack__info "Project npm initialized"
+      webpack__info "Enter in ${1}"
+      cd $1
+      webpack__angular_dep
+      _exit_code $? "npm install"
+      webpack__dev_dep
+      _exit_code $? "npm install"
+
+      webpack__info "Dependencies npm installed"
+      webpack__info "Leaving ${1}"
+      cd ..
+  fi
+
+  webpack__continue
+
+  webpack__info "Create src direcotry"
+  mkdir -p "${src}"
+  _exit_code $? "mkdir"
+
+  webpack__info "Create config direcotry"
+  mkdir -p "${config}"
+  _exit_code $? "mkdir"
+
+  webpack__info "Create assets direcotry"
+  mkdir -p "${assets}"
+  _exit_code $? "mkdir"
+
+  webpack__info "Create css direcotry"
+  mkdir -p "${css}"
+  _exit_code $? "mkdir"
+
+  webpack__info "Create images direcotry"
+  mkdir -p "${images}"
+  _exit_code $? "mkdir"
+
+  webpack__info "Create app direcotry"
+  mkdir -p "${app}"
+  _exit_code $? "mkdir"
+
+  webpack__info "Create helper.js"
+  webpack__path_helper "${config}"
+  _exit_code $? "webpack__path_helper"
+
+  webpack__info "Create webpack.common.js"
+  webpack__config_common "${config}"
+  _exit_code $? "webpack__config_common"
+
+  webpack__info "Create webpack.dev.js"
+  webpack__config_dev "${config}"
+  _exit_code $? "webpack__config_dev"
+
+  #TODO: create webpack prodaction config
+
+  webpack__info "Create tsconfig.json"
+  webpack__typescript_config "${src}"
+  _exit_code $? "webpack__typescript_config"
+
+  webpack__info "Create polyfill.ts"
+  webpack__polyfill_ts "${src}"
+  _exit_code $? "webpack__polyfill_ts"
+
+  webpack__info "Create vendor.ts"
+  webpack__vendor_ts "${src}"
+  _exit_code $? "webpack__vendor_ts"
+
+  webpack__info "Create bootstrap file"
+  webpack__angular_bootstrap "${src}"
+  _exit_code $? "webpack__angular_bootstrap"
+
+  webpack__info "Create first app component file"
+  webpack__angular_comp "${app}"
+  _exit_code $? "webpack__angular_comp"
+
+  webpack__info "Create global css style"
+  webpack__angular_style "${css}"
+  _exit_code $? "webpack__angular_style"
+
+}
+
+# ============================================================================ #
+# Check dependencies for setup angular prokect
+# Globals:
+#  None
+# Arguments:
+#  None
+# Returns:
+#  None
+# ============================================================================ #
+function _check_dependecies() {
+  webpack__info "Check dependencies"
+
+  local npm_version=$(npm -v)
+  _exit_code $? "npm"
+
+  webpack__info "NPM TEST: Version ${npm_version}"
+}
+
+
+function main(){
+  webpack__info "Enter function: ${FUNCNAME}"
+
+  local project_name=${1:-"angular-project"}
+  local description=${2:-"Angular2 Webpack Project"}
+  local license=${3:-"MIT"}
+  local author=${4:-"you"}
+
+  _check_dependecies
+  _build_tree "${project_name}" "${description}" "${license}" "${author}"
+
+  webpack__info "Return function: ${FUNCNAME} in ${SECONDS}s"
+}
+
+main "$@"
