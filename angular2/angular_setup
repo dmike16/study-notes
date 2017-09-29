@@ -68,8 +68,6 @@ function _build_tree() {
       ( cd ${1}
       webpack__angular_dep ${1}
       _exit_code $? "npm install"
-      webpack__dev_dep ${1}
-      _exit_code $? "npm install"
       cd ..) &
 
       webpack__info "Dependencies npm installed"

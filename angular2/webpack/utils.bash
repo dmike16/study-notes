@@ -416,22 +416,8 @@ function webpack__angular_image() {
 function webpack__angular_dep() {
   npm  install --save  @angular/common @angular/compiler @angular/core \
   @angular/forms @angular/http @angular/platform-browser  \
-  @angular/platform-browser-dynamic @angular/router core-js rxjs zone.js
-
-  return $?
-}
-
-# ============================================================================ #
-# Install developemnt dependencies
-# Globals:
-#  None
-# Arguments:
-#  None
-# Returns:
-#  npm command exit status
-# ============================================================================ #
-function webpack__dev_dep() {
-  npm  install --save-dev @types/node @types/jasmine angular2-template-loader \
+  @angular/platform-browser-dynamic @angular/router core-js rxjs zone.js \
+  @types/node @types/jasmine angular2-template-loader \
   awesome-typescript-loader css-loader extract-text-webpack-plugin file-loader \
   html-loader html-webpack-plugin jasmine-core raw-loader style-loader \
   typescript webpack webpack-dev-server webpack-merge clean-webpack-plugin
