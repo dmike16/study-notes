@@ -381,7 +381,7 @@ APPMODULE
 #  $1: location of file
 # Returns:
 #  cat exit status
-# ============================================================================ #  
+# ============================================================================ #
 function webpack__angular_style() {
   cat > ${1}/styles.css<<STYLES
 body {
@@ -389,6 +389,20 @@ body {
     color: #333;
 }
 STYLES
+}
+
+# ============================================================================ #
+# Download angular
+# Globals:
+#
+# Arguments:
+#
+# Returns:
+#
+# ============================================================================ #
+function webpack__angular_image() {
+  curl -OL# https://angular.io/assets/images/logos/angular/angular.png -o "${1}/angular.png"
+  return 0
 }
 # ============================================================================ #
 # Install angular 2 dependencies
@@ -400,7 +414,7 @@ STYLES
 #  npm command exit statuts
 # ============================================================================ #
 function webpack__angular_dep() {
-  npm install --save  @angular/common @angular/compiler @angular/core \
+  npm  install --save  @angular/common @angular/compiler @angular/core \
   @angular/forms @angular/http @angular/platform-browser  \
   @angular/platform-browser-dynamic @angular/router core-js rxjs zone.js
 
@@ -417,7 +431,7 @@ function webpack__angular_dep() {
 #  npm command exit status
 # ============================================================================ #
 function webpack__dev_dep() {
-  npm install --save-dev @types/node @types/jasmine angular2-template-loader \
+  npm  install --save-dev @types/node @types/jasmine angular2-template-loader \
   awesome-typescript-loader css-loader extract-text-webpack-plugin file-loader \
   html-loader html-webpack-plugin jasmine-core raw-loader style-loader \
   typescript webpack webpack-dev-server webpack-merge clean-webpack-plugin

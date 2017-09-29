@@ -35,12 +35,19 @@ function _exit_code() {
 }
 
 function _build_tree() {
-  local config=${1}/config
-  local src=${1}/src
-  local app=${src}/app
-  local assets=${1}/assets
-  local css=${assets}/css
-  local images=${assets}/images
+  local config
+  local src
+  local app
+  local assets
+  local css
+  local images
+
+  config=${1}/config
+  src=${1}/src
+  app=${src}/app
+  assets=${1}/assets
+  css=${assets}/css
+  images=${assets}/images
 
   webpack__info "Setup Project ${1}"
 
@@ -48,10 +55,8 @@ function _build_tree() {
   _exit_code $? "mkdir"
   webpack__info "Create direcotry ${1}"
 
-  webpack__continue
 
-  if [[ -e "./${1}/package.json" ]]
-    then
+  if [[ -e "./${1}/package-lock.json" ]]; then
       webpack__info "Project already initialized. Use npm i --save[-dev] [package] \
        to install new dependencies"
   else
@@ -59,19 +64,17 @@ function _build_tree() {
       _exit_code $? "webpack__package_json"
 
       webpack__info "Project npm initialized"
-      webpack__info "Enter in ${1}"
-      cd $1
-      webpack__angular_dep
+
+      ( cd ${1}
+      webpack__angular_dep ${1}
       _exit_code $? "npm install"
-      webpack__dev_dep
+      webpack__dev_dep ${1}
       _exit_code $? "npm install"
+      cd ..) &
 
       webpack__info "Dependencies npm installed"
-      webpack__info "Leaving ${1}"
-      cd ..
-  fi
 
-  webpack__continue
+  fi
 
   webpack__info "Create src direcotry"
   mkdir -p "${src}"
@@ -135,6 +138,10 @@ function _build_tree() {
   webpack__angular_style "${css}"
   _exit_code $? "webpack__angular_style"
 
+  webpack__info "Download angular quickstart image"
+  webpack__angular_image "${images}"
+  _exit_code $? "webpack__angular_image"
+
 }
 
 # ============================================================================ #
@@ -149,7 +156,8 @@ function _build_tree() {
 function _check_dependecies() {
   webpack__info "Check dependencies"
 
-  local npm_version=$(npm -v)
+  local npm_version
+  npm_version=$(npm -v)
   _exit_code $? "npm"
 
   webpack__info "NPM TEST: Version ${npm_version}"
@@ -159,13 +167,25 @@ function _check_dependecies() {
 function main(){
   webpack__info "Enter function: ${FUNCNAME}"
 
-  local project_name=${1:-"angular-project"}
-  local description=${2:-"Angular2 Webpack Project"}
-  local license=${3:-"MIT"}
-  local author=${4:-"you"}
+  local project_name
+  local description
+  local license
+  local author
+
+  project_name=${1:-"angular-project"}
+  description=${2:-"Angular2 Webpack Project"}
+  license=${3:-"MIT"}
+  author=${4:-"you"}
 
   _check_dependecies
   _build_tree "${project_name}" "${description}" "${license}" "${author}"
+
+  if [[ -e "${project_name}/package-lock.json" ]]; then
+    :
+  else
+    webpack__info "Waiting for install dependencies process"
+    wait
+  fi
 
   webpack__info "Return function: ${FUNCNAME} in ${SECONDS}s"
 }
