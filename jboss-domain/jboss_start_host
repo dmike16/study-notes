@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+#
+jboss_start_dom=$(ps -e | grep "jboss_start_dom")
+if [[ -z "${JBOSS_HOME}" ]]; then
+  echo "JBOSS_HOME not set"
+  exit 1
+elif [[ -z "${jboss_start_dom}" ]]; then
+  echo "Launch jboss_start_domain first"
+  exit 1
+else
+  ${JBOSS_HOME}/bin/domain.sh --host-config=host-slave.xml  \
+  -Djboss.domain.base.dir=${HOME}/Development/wildfly-host/h1dmike \
+  -Djboss.domain.master.address=localhost \
+  -Djboss.management.native.port=10090
+fi
