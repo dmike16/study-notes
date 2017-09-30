@@ -110,7 +110,9 @@ function _build_tree() {
   webpack__config_dev "${config}"
   _exit_code $? "webpack__config_dev"
 
-  #TODO: create webpack prodaction config
+  webpack__info "Create webpack.prod.js"
+  webpack__config_production "${config}"
+  _exit_code $? "webpack__config_production"
 
   webpack__info "Create tsconfig.json"
   webpack__typescript_config "${src}"
