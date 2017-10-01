@@ -181,6 +181,8 @@ const commonConfig = require('./webpack.common.js');
 const helper = require('./helper');
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
+const VERSION = '1.0.0';
+const PROJECT_NAME = '${2}';
 
 module.exports = webpackMerge(commonConfig,{
   devtool: 'source-map',
@@ -209,7 +211,9 @@ module.exports = webpackMerge(commonConfig,{
     new ExtractTextPlugin('[name].[chunkhash].css'),
     new webpack.DefinePlugin({
       'process.env':{
-        'ENV': JSON.stringify(ENV)
+        'ENV': JSON.stringify(ENV),
+        'VERSION': JSON.stringify(VERSION),
+        'PROJECT_NAME': JSON.stringify(PROJECT_NAME)
       }
     })
   ]
@@ -362,6 +366,8 @@ import { AppModule } from './app/app.module';
 
 if (process.env.ENV === 'production') {
   enableProdMode();
+  console.log('%c'+process.env.PROJECT_NAME,'font-size:13px;color:#0147A7;');
+  console.log('%cv'+process.env.VERSION,'font-size:11px;color:#c4342e;');
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule);

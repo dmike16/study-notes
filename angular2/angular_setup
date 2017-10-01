@@ -111,7 +111,7 @@ function _build_tree() {
   _exit_code $? "webpack__config_dev"
 
   webpack__info "Create webpack.prod.js"
-  webpack__config_production "${config}"
+  webpack__config_production "${config}" "${1}"
   _exit_code $? "webpack__config_production"
 
   webpack__info "Create tsconfig.json"
@@ -188,6 +188,24 @@ function main(){
   fi
 
   webpack__info "Return function: ${FUNCNAME} in ${SECONDS}s"
+
+  if [[ -e "${project_name}"/node_modules ]]; then
+    echo "# ============================================== #"
+    echo "#                                                #"
+    echo "# The project ${project_name} is initialized.    #"
+    echo "# To start developing the app:                   #"
+    echo "#  1. cd in ${project_name}                      #"
+    echo "#  2. npm run start                              #"
+    echo "# Now the app is running at localhost:4200,      #"
+    echo "# every change to the source code cause a        #"
+    echo "# rebuild of the app and a refresh of the broswer#"
+    echo "#                                                #"
+    echo "# To build the app for production type:          #"
+    echo "# npm run build                                  #"
+    echo "# The generated files will be in dist direcotry  #"
+    echo "#                                                #"
+    echo "# ============================================== #"
+  fi
 }
 
 main "$@"
