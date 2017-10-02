@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+#
+echo $JBOSS_HOME 
+if [[ -n "${JBOSS_HOME}" ]]; then
+  ${JBOSS_HOME}/bin/domain.sh --host-config=host-master.xml \
+  -Djboss.domain.base.dir=${HOME}/Development/wildfly-host/ddmike
+else
+  echo "JBOSS_HOME not set";
+  exit 1
+fi
