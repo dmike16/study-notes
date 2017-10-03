@@ -135,16 +135,53 @@ namespace :dist do
 
   desc 'dist angular Setup Bash Script'
   task :angular => :predist do
+    zip_dir('angular2','dist/angular')
+  end
 
+  desc 'dist jboss Setup Bash Script'
+  task :jboss => :predist do
+    zip_dir('jboss-domain','dist/jboss-domain')
   end
 
   task :all => %W[angular jboss] do
     puts "=== ALL DONE..! Dist Complete!"
   end
 
-  def :zip_dir(in_dir,out_dir)
-    entris = Dir.entries(in_dir) -%w(. ..)
+  def zip_dir(in_dir,out_dir)
+    entries = Dir.entries(in_dir) -%w(. ..)
+
+    Zip::File.open(out_dir,Zip::File::CREATE) do |io|
+      put_entries(entries, '', io, in_dir)
+    end
   end
+
+  def rec_zip_dir(disk_file_path,io,zip_path,in_dir)
+    io.mkdir zip_path
+    subdir = Dir.entries(disk_file_path) -%w(. ..)
+    put_entries(subdir,zip_path,io,in_dir)
+  end
+
+  def put_entries(entries,path,io,in_dir)
+    entries.each do |e|
+      zip_path = path == '' ? e : File.join(path,e)
+      disk_file_path = File.join(in_dir,zip_path)
+
+      puts "[INFO] Deflating #{disk_file_path}"
+      if File.directory? disk_file_path
+        rec_zip_dir(disk_file_path,io,zip_path,in_dir)
+      else
+        put_into_zip(disk_file_path,io,zip_path)
+      end
+    end
+  end
+
+  def put_into_zip(disk_file_path,io,zip_path)
+    io.get_output_stream(zip_path) do |f|
+      f.write(File.open(disk_file_path,'rb').read)
+    end
+  end
+  CLOBBER.include('dist')
 end
 
 task :default => "book:all"
+task :zip => "dist:all"
