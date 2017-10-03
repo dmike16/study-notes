@@ -1,4 +1,6 @@
 require 'rake/clean'
+require 'zip'
+
 namespace :book do
   desc 'prepare build'
   task :prebuild do
@@ -123,6 +125,26 @@ namespace :book do
     puts "=== ALL DONE...! BYE...!"
   end
   CLOBBER.include('target')
+end
+
+namespace :dist do
+  desc 'prepare distribution'
+  task :predist do
+    Dir.mkdir 'dist' unless Dir.exists? 'dist'
+  end
+
+  desc 'dist angular Setup Bash Script'
+  task :angular => :predist do
+
+  end
+
+  task :all => %W[angular jboss] do
+    puts "=== ALL DONE..! Dist Complete!"
+  end
+
+  def :zip_dir(in_dir,out_dir)
+    entris = Dir.entries(in_dir) -%w(. ..)
+  end
 end
 
 task :default => "book:all"
