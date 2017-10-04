@@ -135,12 +135,12 @@ namespace :dist do
 
   desc 'dist angular Setup Bash Script'
   task :angular => :predist do
-    zip_dir('angular2','dist/angular')
+    zip_dir('angular2','dist/angular.zip')
   end
 
   desc 'dist jboss Setup Bash Script'
   task :jboss => :predist do
-    zip_dir('jboss-domain','dist/jboss-domain')
+    zip_dir('jboss-domain','dist/jboss-domain.zip')
   end
 
   task :all => %W[angular jboss] do
