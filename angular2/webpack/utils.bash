@@ -108,7 +108,7 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
   //Fix an angular2 warning
     new webpack.ContextReplacementPlugin(
-      /angular(\\|\/)core(\\|\/)@angular/,
+      /angular(\\\\|\/)core(\\\\|\/)@angular/,
       helper.root('./src'),
       {}
     ),
@@ -287,7 +287,7 @@ TSCONFIG
 #  cat exit statuts
 # ============================================================================ #
 function webpack__polyfill_ts() {
-  cat > ${1}/polyfill.ts <<POLYFILL
+  cat > ${1}/polyfills.ts <<POLYFILL
 import 'core-js/es6';
 import 'core-js/es7/reflect';
 require('zone.js/dist/zone');
@@ -366,8 +366,8 @@ import { AppModule } from './app/app.module';
 
 if (process.env.ENV === 'production') {
   enableProdMode();
-  console.log(`%c${process.env.PROJECT_NAME}`,'font-size:13px;color:#0147A7;');
-  console.log(`%cv${process.env.VERSION}`,'font-size:11px;color:#c4342e;');
+  console.log(\`%c\${process.env.PROJECT_NAME}\`,'font-size:13px;color:#0147A7;');
+  console.log(\`%cv\${process.env.VERSION}\`,'font-size:11px;color:#c4342e;');
 }
 
 platformBrowserDynamic().bootstrapModule(AppModule);
@@ -413,9 +413,8 @@ APPCSS
   cat > ${1}/app.component.html <<APPHTML
 <main>
   <h1>{{ pageTitle }}</h1>
-  <!-- Download the image from angular documentation
-  <img src="../assets/images/angular.png"> -->
-  <app-pm-products></app-pm-products>
+  <!-- Download the image from angular documentation -->
+  <img src="../assets/images/angular.png">
 </main>
 APPHTML
 ## app module
@@ -470,7 +469,7 @@ STYLES
 #
 # ============================================================================ #
 function webpack__angular_image() {
-  curl -OL# https://angular.io/assets/images/logos/angular/angular.png -o "${1}/angular.png"
+  curl -L# https://angular.io/assets/images/logos/angular/angular.png -o "${1}/angular.png"
   return 0
 }
 # ============================================================================ #
@@ -485,11 +484,12 @@ function webpack__angular_image() {
 function webpack__angular_dep() {
   npm  install --save  @angular/common @angular/compiler @angular/core \
   @angular/forms @angular/http @angular/platform-browser  \
-  @angular/platform-browser-dynamic @angular/router core-js rxjs zone.js \
-  @types/node @types/jasmine angular2-template-loader \
+  @angular/platform-browser-dynamic @angular/router core-js rxjs zone.js && \
+  npm install --save-dev @types/node @types/jasmine angular2-template-loader \
   awesome-typescript-loader css-loader extract-text-webpack-plugin file-loader \
   html-loader html-webpack-plugin jasmine-core raw-loader style-loader \
-  typescript webpack webpack-dev-server webpack-merge clean-webpack-plugin
+  typescript webpack webpack-dev-server webpack-merge clean-webpack-plugin && \
+  touch .initialized
 
   return $?
 }

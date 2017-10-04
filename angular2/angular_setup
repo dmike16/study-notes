@@ -45,7 +45,7 @@ function _build_tree() {
   config=${1}/config
   src=${1}/src
   app=${src}/app
-  assets=${1}/assets
+  assets=${src}/assets
   css=${assets}/css
   images=${assets}/images
 
@@ -65,10 +65,10 @@ function _build_tree() {
 
       webpack__info "Project npm initialized"
 
-      ( cd ${1}
-      webpack__angular_dep ${1}
-      _exit_code $? "npm install"
-      cd ..) &
+      #( cd ${1}
+      #webpack__angular_dep ${1}
+      #_exit_code $? "npm install"
+      #cd ..) &
 
       webpack__info "Dependencies npm installed"
 
@@ -180,11 +180,12 @@ function main(){
   _check_dependecies
   _build_tree "${project_name}" "${description}" "${license}" "${author}"
 
-  if [[ -e "${project_name}/package-lock.json" ]]; then
+  if [[ -e "${project_name}/.initialized" ]]; then
     :
   else
     webpack__info "Waiting for install dependencies process"
     wait
+    rm -f ${project_name}/.initialized
   fi
 
   webpack__info "Return function: ${FUNCNAME} in ${SECONDS}s"
