@@ -70,11 +70,11 @@ namespace :book do
       FileUtils.copy(image,"target/images/"+File.basename(image))
     end
     puts "=== [NODEJS] Converting to HTML..."
-    `bundle exec asciidoctor nodejs/nodejs.adoc --destination-dir=target`
+    `bundle exec asciidoctor nodejs/nodejs.adoc --require=asciidoctor-diagram --destination-dir=target`
     puts "=== HTML output at target/nodejs.html"
 
     puts "Converting to PDF... (this one takes a while)"
-    `bundle exec asciidoctor nodejs/nodejs.adoc --destination-dir=target --backend=pdf --require=asciidoctor-pdf `
+    `bundle exec asciidoctor nodejs/nodejs.adoc  -r asciidoctor-diagram  --require=asciidoctor-pdf --backend=pdf --destination-dir=target`
     puts "=== PDF output at target/nodejs.pdf "
   end
 
