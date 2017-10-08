@@ -2,7 +2,7 @@
 :sectanchors:
 
 .WebPush Flow
-image::images/web-push.svg[]
+image::web-push.svg[]
 
 === Web Push VAPID
 
@@ -20,7 +20,7 @@ generated above using a ES256 algorithm
 * *Crypto-Key*: `ps56ecdsa=<public-key>`
 
 .VAPID
-image::images/vapid.svg[]
+image::vapid.svg[]
 
 === Jason Web Token (JWT)
 
@@ -28,7 +28,7 @@ The JWT is a way of sending informations to third party so that the reciver can
 validate who sent it. A signed JWT is just three strings diveded by a dot.
 
 .JWT
-image::images/jwt.svg[]
+image::jwt.svg[]
 
 * The first string it's a json url-base64 encoded and rappresents information
 about the JWT for web push must be :
