@@ -91,14 +91,21 @@ module.exports = {
         exclude: helper.root('src','app'),
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader?sourceMap'
+          use: [{
+            loader: 'css-loader',
+            options: {sourceMap:true}
+          },
+          {
+            loader: 'sass-loader',
+            options: {sourceMap: true}
+          }]
         })
       },
       // Css in app folder rule
       {
         test: /.css$/,
         include: helper.root('src','app'),
-        use: ['raw-loader']
+        use: ['to-string','sass-loader']
       }
     ]
   },
@@ -388,12 +395,12 @@ function webpack__angular_comp() {
   cat > ${1}/app.component.ts<<APPTS
 import { Component } from '@angular/core';
 
-import '../assets/css/styles.css';
+import '../assets/css/styles.scss';
 
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   pageTitle: string = "Angular2 Webpack";
@@ -451,7 +458,7 @@ APPMODULE
 #  cat exit status
 # ============================================================================ #
 function webpack__angular_style() {
-  cat > ${1}/styles.css<<STYLES
+  cat > ${1}/styles.scss<<STYLES
 body {
     background: #0147A7;
     color: #333;
@@ -482,13 +489,16 @@ function webpack__angular_image() {
 #  npm command exit statuts
 # ============================================================================ #
 function webpack__angular_dep() {
-  npm  install --save  @angular/common @angular/compiler @angular/core \
+  local cmd;
+  cmd=${1}
+  ${cmd[0]} @angular/common @angular/compiler @angular/core \
   @angular/forms @angular/http @angular/platform-browser  \
   @angular/platform-browser-dynamic @angular/router core-js rxjs zone.js && \
-  npm install --save-dev @types/node @types/jasmine angular2-template-loader \
+  ${cmd[1]} @types/node @types/jasmine angular2-template-loader \
   awesome-typescript-loader css-loader extract-text-webpack-plugin file-loader \
-  html-loader html-webpack-plugin jasmine-core raw-loader style-loader \
-  typescript webpack webpack-dev-server webpack-merge clean-webpack-plugin && \
+  html-loader html-webpack-plugin jasmine-core to-string-loader style-loader \
+  typescript webpack webpack-dev-server webpack-merge clean-webpack-plugin \
+  sass-loader node-sass && \
   touch .initialized
 
   return $?

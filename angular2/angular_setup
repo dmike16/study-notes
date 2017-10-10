@@ -15,6 +15,8 @@ source webpack/utils.bash
 E_BADARGS=85
 E_COMMAND_NOT_FOUND=127
 
+declare -a cmds
+
 function _exit_code() {
   case $1 in
     0)
@@ -65,10 +67,10 @@ function _build_tree() {
 
       webpack__info "Project npm initialized"
 
-      #( cd ${1}
-      #webpack__angular_dep ${1}
-      #_exit_code $? "npm install"
-      #cd ..) &
+      ( cd ${1}
+      webpack__angular_dep "${cmds}"
+      _exit_code $? "Installing dependencies"
+      cd ..) &
 
       webpack__info "Dependencies npm installed"
 
@@ -157,10 +159,18 @@ function _check_dependecies() {
   webpack__info "Check dependencies"
 
   local npm_version
-  npm_version=$(npm -v)
-  _exit_code $? "npm"
+  local yarn_version
 
-  webpack__info "NPM TEST: Version ${npm_version}"
+  yarn_version=$(yarn -v)
+  if [[ $? ]]; then
+    cmds[0]="yarn add"
+    cmds[1]="yarn add --dev"
+    webpack__info "YARN TEST: Version ${yarn_version}"
+  else
+    npm_version=$(npm -v)
+    _exit_code $? "npm"
+    webpack__info "NPM TEST: Version ${npm_version}"
+  fi
 }
 
 
