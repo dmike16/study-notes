@@ -4,103 +4,103 @@ require 'zip'
 namespace :book do
   desc 'prepare build'
   task :prebuild do
-    Dir.mkdir 'target' unless Dir.exists? 'target'
+    Dir.mkdir 'build' unless Dir.exists? 'build'
   end
 
   desc 'build bem'
   task :bem => :prebuild do
-    copyImages("./bem/images/*","target/images_bem/")
+    copyImages("./bem/images/*","build/images_bem/")
     puts "=== [BEM] Converting to HTML..."
-    `bundle exec asciidoctor bem/bem.adoc --destination-dir=target`
-    puts "=== HTML output at target/bem.html"
+    `bundle exec asciidoctor bem/bem.adoc --destination-dir=build`
+    puts "=== HTML output at build/bem.html"
 
     puts "Converting to PDF... (this one takes a while)"
-    `bundle exec asciidoctor bem/bem.adoc --destination-dir=target --backend=pdf --require=asciidoctor-pdf `
-    puts "=== PDF output at target/bem.pdf "
+    `bundle exec asciidoctor bem/bem.adoc --destination-dir=build --backend=pdf --require=asciidoctor-pdf `
+    puts "=== PDF output at build/bem.pdf "
   end
 
   desc 'build concurrency'
   task :concurrency => :prebuild do
-    copyImages("./concurrency/images/*","target/images_concurrency/")
+    copyImages("./concurrency/images/*","build/images_concurrency/")
     puts "=== [CONCURRENCY]] Converting to HTML..."
-    `bundle exec asciidoctor concurrency/concurrency.adoc --destination-dir=target`
-    puts "=== HTML output at target/concurrency.html"
+    `bundle exec asciidoctor concurrency/concurrency.adoc --destination-dir=build`
+    puts "=== HTML output at build/concurrency.html"
 
     puts "Converting to PDF... (this one takes a while)"
-    `bundle exec asciidoctor concurrency/concurrency.adoc --destination-dir=target --backend=pdf --require=asciidoctor-pdf `
-    puts "=== PDF output at target/concurrency.pdf"
+    `bundle exec asciidoctor concurrency/concurrency.adoc --destination-dir=build --backend=pdf --require=asciidoctor-pdf `
+    puts "=== PDF output at build/concurrency.pdf"
   end
 
   desc 'build java-security'
   task :javasec => :prebuild do
-    copyImages("./java-security/images/*","target/images_javasec")
+    copyImages("./java-security/images/*","build/images_javasec")
     puts "=== [JAVA-SECURITY] Converting to HTML..."
-    `bundle exec asciidoctor java-security/java-security.adoc --destination-dir=target`
-    puts "=== HTML output at target/java-security.html"
+    `bundle exec asciidoctor java-security/java-security.adoc --destination-dir=build`
+    puts "=== HTML output at build/java-security.html"
 
     puts "Converting to PDF... (this one takes a while)"
-    `bundle exec asciidoctor java-security/java-security.adoc --destination-dir=target --backend=pdf --require=asciidoctor-pdf `
-    puts "=== PDF output at target/java-security.pdf "
+    `bundle exec asciidoctor java-security/java-security.adoc --destination-dir=build --backend=pdf --require=asciidoctor-pdf `
+    puts "=== PDF output at build/java-security.pdf "
   end
 
   desc 'build javaee'
   task :javaee => :prebuild do
-    copyImages("./javaee/images/*","target/images_javaee/")
+    copyImages("./javaee/images/*","build/images_javaee/")
     puts "=== [JAVAEE] Converting to HTML..."
-    `bundle exec asciidoctor javaee/javaee.adoc --destination-dir=target`
+    `bundle exec asciidoctor javaee/javaee.adoc --destination-dir=build`
     puts "=== HTML output at targe/javaee.html"
 
     puts "Converting to PDF... (this one takes a while)"
-    `bundle exec asciidoctor javaee/javaee.adoc --destination-dir=target --backend=pdf --require=asciidoctor-pdf `
-    puts "=== PDF output at target/javaee.pdf "
+    `bundle exec asciidoctor javaee/javaee.adoc --destination-dir=build --backend=pdf --require=asciidoctor-pdf `
+    puts "=== PDF output at build/javaee.pdf "
   end
 
   desc 'build nodejs'
   task :nodejs => :prebuild do
-    copyImages("./nodejs/images/*","target/images_nodejs/")
+    copyImages("./nodejs/images/*","build/images_nodejs/")
     puts "=== [NODEJS] Converting to HTML..."
-    `bundle exec asciidoctor nodejs/nodejs.adoc --require=asciidoctor-diagram --destination-dir=target`
-    puts "=== HTML output at target/nodejs.html"
+    `bundle exec asciidoctor nodejs/nodejs.adoc --require=asciidoctor-diagram --destination-dir=build`
+    puts "=== HTML output at build/nodejs.html"
 
     puts "Converting to PDF... (this one takes a while)"
-    `bundle exec asciidoctor nodejs/nodejs.adoc  -r asciidoctor-diagram  --require=asciidoctor-pdf --backend=pdf --destination-dir=target`
-    puts "=== PDF output at target/nodejs.pdf "
+    `bundle exec asciidoctor nodejs/nodejs.adoc  -r asciidoctor-diagram  --require=asciidoctor-pdf --backend=pdf --destination-dir=build`
+    puts "=== PDF output at build/nodejs.pdf "
   end
 
   desc 'build pwapp'
   task :pwapp => :prebuild do
-    copyImages("./pwapp/images/*","target/images_pwapp/")
+    copyImages("./pwapp/images/*","build/images_pwapp/")
     puts "=== [PWAPP] Converting to HTML..."
-    `bundle exec asciidoctor pwapp/pwapp.adoc --destination-dir=target`
-    puts "=== HTML output at target/pwapp.html"
+    `bundle exec asciidoctor pwapp/pwapp.adoc --destination-dir=build`
+    puts "=== HTML output at build/pwapp.html"
 
     puts "Converting to PDF... (this one takes a while)"
-    `bundle exec asciidoctor pwapp/pwapp.adoc --destination-dir=target --backend=pdf --require=asciidoctor-pdf `
-    puts "=== PDF output at target/pwapp.pdf "
+    `bundle exec asciidoctor pwapp/pwapp.adoc --destination-dir=build --backend=pdf --require=asciidoctor-pdf `
+    puts "=== PDF output at build/pwapp.pdf "
   end
 
   desc 'build struts2'
   task :struts2 => :prebuild do
-    copyImages("./struts/images/*","target/images_strut2/")
+    copyImages("./struts/images/*","build/images_strut2/")
     puts "=== [STRUTS2] Converting to HTML..."
-    `bundle exec asciidoctor struts/struts2.adoc --destination-dir=target`
-    puts "=== HTML output at target/struts2.html"
+    `bundle exec asciidoctor struts/struts2.adoc --destination-dir=build`
+    puts "=== HTML output at build/struts2.html"
 
     puts "Converting to PDF... (this one takes a while)"
-    `bundle exec asciidoctor struts/struts2.adoc --destination-dir=target --backend=pdf --require=asciidoctor-pdf `
-    puts "=== PDF output at target/struts2.pdf "
+    `bundle exec asciidoctor struts/struts2.adoc --destination-dir=build --backend=pdf --require=asciidoctor-pdf `
+    puts "=== PDF output at build/struts2.pdf "
   end
 
   desc 'build Broswer Optimization'
   task :bronet => :prebuild do
-    copyImages("./bronet/images/*","target/images_bronet/")
+    copyImages("./bronet/images/*","build/images_bronet/")
     puts "=== [BROSWER NETWORKING] Converting to HTML..."
-    `bundle exec asciidoctor bronet/bronet.adoc --destination-dir=target`
-    puts "=== HTML output at target/bronet.html"
+    `bundle exec asciidoctor bronet/bronet.adoc --destination-dir=build`
+    puts "=== HTML output at build/bronet.html"
 
     puts "Converting to PDF... (this one takes a while)"
-    `bundle exec asciidoctor bronet/bronet.adoc --destination-dir=target --backend=pdf --require=asciidoctor-pdf `
-    puts "=== PDF output at target/bronet.pdf "
+    `bundle exec asciidoctor bronet/bronet.adoc --destination-dir=build --backend=pdf --require=asciidoctor-pdf `
+    puts "=== PDF output at build/bronet.pdf "
   end
 
   desc 'build all study notes'
@@ -115,7 +115,7 @@ namespace :book do
     end
   end
 
-  CLOBBER.include('target')
+  CLOBBER.include('build')
 end
 
 namespace :dist do
