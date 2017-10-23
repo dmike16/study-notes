@@ -2,7 +2,7 @@
 == Element
 :sectanchors:
 
-It's a costituent part of a block that can be used outside of it.
+It's a costituent part of a block that can not be used outside of it.
 
 .Element Feature
 * The element name describes it's purpose not it's state

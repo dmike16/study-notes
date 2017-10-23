@@ -21,10 +21,10 @@ include::{includedir}/block.adoc[]
 
 include::{includedir}/element.adoc[]
 
-include::{includedir}/file_structure.adoc[]
+include::{includedir}/modifier.adoc[]
 
 include::{includedir}/mix.adoc[]
 
-include::{includedir}/modifier.adoc[]
+include::{includedir}/file_structure.adoc[]
 
 include::{includedir}/redefinitions_level.adoc[]
