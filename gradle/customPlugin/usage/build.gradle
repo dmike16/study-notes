@@ -1,0 +1,15 @@
+buildscript{
+  repositories{
+    maven{
+      url uri("$System.env.HOME/.m2/repository")
+    }
+  }
+
+  dependencies{
+    //Add other custom local plugin
+    classpath group: 'org.dmike.gradle.cplug', name: 'gradlePlugin',
+      version: '1.0-SNAPSHOT'
+  }
+}
+
+apply plugin: 'org.dmike.gradle.cplug.greeting'
