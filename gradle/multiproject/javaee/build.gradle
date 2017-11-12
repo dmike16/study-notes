@@ -46,7 +46,7 @@ allprojects {
 /******************************************************************************
 * Realese task common to all project
 *******************************************************************************/
-  task realese(dependOn: 'assemble') {
+  task realese(dependsOn: 'assemble') {
     doLast{
       logger.quiet("Realese Project $gup $project.name $version")
     }
