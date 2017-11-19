@@ -68,6 +68,20 @@ configurations.all{
   }
 }
 /******************************************************************************
+* Custom api configuration
+*******************************************************************************/
+configurations{
+  api
+}
+task apiJar(type: Jar){
+  baseName = 'api'
+  from sourceSets.main.output
+  include('org/dmike/api/**')
+}
+artifacts{
+  api apiJar
+}
+/******************************************************************************
 * Set the repo fetching origin to mavenCentral for all
 * subprojects.
 *******************************************************************************/
