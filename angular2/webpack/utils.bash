@@ -115,7 +115,7 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
   //Fix an angular2 warning
     new webpack.ContextReplacementPlugin(
-      /angular(\\\\|\/)core(\\\\|\/)@angular/,
+      /angular(\\\\|\/)core(\\\\|\/)(@angular|esm5)/,
       helper.root('./src'),
       {}
     ),
