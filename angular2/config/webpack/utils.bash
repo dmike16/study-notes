@@ -18,7 +18,7 @@
 function webpack__path_helper() {
   cat > ${1}/helper.js <<HELPER
 const path = require('path');
-const _root = path.resolve(__dirname,'..');
+const _root = path.resolve(__dirname,'../..');
 
 function root(){
   let args = Array.prototype.slice.call(arguments,0);
@@ -45,7 +45,6 @@ const helper = require('./helper');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   // Entry Points
@@ -87,7 +86,7 @@ module.exports = {
       },
       //Css in assets rule
       {
-        test: /\.css$/,
+        test: /\.scss$/,
         exclude: helper.root('src','app'),
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -103,16 +102,14 @@ module.exports = {
       },
       // Css in app folder rule
       {
-        test: /.css$/,
+        test: /.scss$/,
         include: helper.root('src','app'),
-        use: ['to-string','sass-loader']
+        use: ['raw-loader','sass-loader']
       }
     ]
   },
 
   plugins:[
-  //Clean dist on rebuild
-    new CleanWebpackPlugin(['dist']),
   //Fix an angular2 warning
     new webpack.ContextReplacementPlugin(
       /angular(\\\\|\/)core(\\\\|\/)(@angular|esm5)/,
@@ -164,7 +161,8 @@ module.exports = webpackMerge(commonConfig,{
 
   devServer: {
     historyApiFallback: true,
-    stats: 'minimal'
+    stats: 'minimal',
+    https: true
   }
 });
 DEV
@@ -184,12 +182,13 @@ function webpack__config_production() {
 const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const commonConfig = require('./webpack.common.js');
 const helper = require('./helper');
-
+const info = require(helper.root('package.json'));
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
-const VERSION = '1.0.0';
-const PROJECT_NAME = '${2}';
+const VERSION = info.version;
+const PROJECT_NAME = info.name;
 
 module.exports = webpackMerge(commonConfig,{
   devtool: 'source-map',
@@ -202,6 +201,8 @@ module.exports = webpackMerge(commonConfig,{
   },
 
   plugins:[
+  //Clean dist on rebuild
+    new CleanWebpackPlugin(['build'],{allowExternal: true}),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
@@ -246,8 +247,10 @@ function webpack__package_json() {
     "version": "1.0.0",
     "description": "$2",
     "scripts": {
-      "start": "webpack-dev-server --config config/webpack.dev.js --inline --progress --port 4200",
-      "build": "webpack --config/webpack.prod.js --profile --progress --bail",
+      "start": "gulp serve",
+      "build": "gulp build",
+      "prod": "gulp build:aot",
+      "dist": "gulp pack",
       "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -279,6 +282,9 @@ function webpack__typescript_config() {
       "lib": ["es2015", "dom"],
       "noImplicitAny": true,
       "suppressImplicitAnyIndexErrors": true
+    },
+    "angularCompilerOptions":{
+      "strictMetadataEmit": true
     }
   }
 TSCONFIG
@@ -449,6 +455,143 @@ APPMODULE
 }
 
 # ============================================================================ #
+# Create gulp task setup
+# Globals:
+#  None
+# Arguments:
+#  Directory where save the file
+# Returns:
+#  Cat exit status
+# ============================================================================ #
+function webpack__gulp_setup() {
+  ## gulpfile
+  cat > ${1}/gulpfile.js <<GULP
+/**
+ * Gulp file configuration
+ */
+const gulp = require('gulp');
+
+function loadTask(fileName,taskName){
+  let task = require(\`./tools/gulp-task/\${fileName}\`);
+  let tn = taskName || 'default';
+  return task[tn](gulp);
+}
+
+gulp.task('default',loadTask('default'));
+gulp.task('serve',loadTask('serve'));
+gulp.task('build',loadTask('build'));
+gulp.task('build:aot',loadTask('build','aot'));
+gulp.task('build:pack',['build:aot'],loadTask('build','pack'));
+GULP
+  ## default task
+  cat > ${2}/default.js <<DEFAULT
+/**
+ * Default gulp task
+ */
+const helper = require('../config/helper');
+const info = require(helper.root('package.json'));
+const gutil = require('gulp-util');
+
+exports.default = (gulp)=>()=>{
+  gutil.log(gutil.colors.blue(info.name));
+  gutil.log(gutil.colors.green(info.description));
+  gutil.log(gutil.colors.red(info.author.email));
+  gutil.log(gutil.colors.red(info.repository.url));
+};
+DEFAULT
+  ## serve task
+  cat > ${2}/serve.js <<SERVE
+/**
+ * Gulp serve task
+ */
+
+function closeOnSign(closable, signs, callback) {
+  if (typeof closable.close === 'function') {
+    let onSign = () => {
+      callback();
+      closable.close(() => {
+        process.exit();
+      });
+    };
+    for (let sign of [...signs]) {
+      process.on(sign, onSign);
+    }
+  }
+}
+
+exports.default = (gulp) => (cb) => {
+  const devConfig = require('../config/webpack.dev');
+  const webpack = require('webpack');
+  const gutil = require('gulp-util');
+  const WebpackDevServer = require('webpack-dev-server');
+  //Extract and add some devServer config options
+  const devServer = Object.assign({}, devConfig.devServer, {
+    host: 'localhost',
+    port: 4200,
+    publicPath: devConfig.output.publicPath
+  });
+  //Create a server entry point to broswer reload
+  WebpackDevServer.addDevServerEntrypoints(devConfig, devServer);
+  //Initialite webpack compiler
+  const compiler = webpack(devConfig);
+  //Apply progress bar plugin
+  compiler.apply(new webpack.ProgressPlugin());
+  //Create the server instance
+  const server = new WebpackDevServer(compiler, devServer);
+  //Close serve un SIGINT,SIGTERM event
+  closeOnSign(server, ['SIGINT', 'SIGTERM'], cb);
+  server.listen(devServer.port, devServer.host, (err) => {
+    if (err) {
+      throw err;
+    } else {
+      let domain = [
+        (devServer.https ? 'https' : 'http'),
+        '://', devServer.host, ':', devServer.port
+      ];
+      gutil.log(' ');
+      gutil.log(gutil.colors.green('Application serving at'));
+      gutil.log(gutil.colors.green(domain.join('')));
+    }
+  });
+};
+SERVE
+  ## build task
+  cat > ${2}/build.js <<BUILD
+/**
+ * Gulp build task
+ */
+
+exports.default = (gulp) => (cb) => {
+  const pump = require('pump');
+  const prodaction = require('../config/webpack.prod');
+  const webpack = require('webpack');
+  const webpackStream = require('webpack-stream');
+  const helper = require('../config/helper');
+  const src = helper.root('src');
+  pump([
+    gulp.src([\`\${src}/main.ts\`,\`\${src}/polyfills.ts\`,\`\${src}/vendor.ts\`]),
+    webpackStream({
+      config: prodaction,
+      progress: true
+    }),
+    gulp.dest(helper.root('build'))
+  ],cb);
+};
+
+exports.aot = (gulp) => () => {
+  const gutil = require('gulp-util');
+  gutil.log('TO DO');
+}
+
+exports.pack = (gulp) => () => {
+  const gutil = require('gulp-util');
+  gutil.log('TO DO');
+}
+BUILD
+  return $?
+}
+
+# ============================================================================ #
 # Create principal css style file
 # Globals:
 #  None
@@ -496,8 +639,9 @@ function webpack__angular_dep() {
   @angular/platform-browser-dynamic @angular/router core-js rxjs zone.js && \
   ${cmd[1]} @types/node @types/jasmine angular2-template-loader \
   awesome-typescript-loader css-loader extract-text-webpack-plugin file-loader \
-  html-loader html-webpack-plugin jasmine-core to-string-loader style-loader \
+  html-loader html-webpack-plugin jasmine-core raw-loader style-loader \
   typescript webpack webpack-dev-server webpack-merge clean-webpack-plugin \
+  gulp gulp-zip gulp-util pump webpack-stream @ngtools/webpack @angular/language-service \
   sass-loader node-sass && \
   touch .initialized
 
