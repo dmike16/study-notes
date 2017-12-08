@@ -71,10 +71,10 @@ function _build_tree() {
 
       webpack__info "Project npm initialized"
 
-      #( cd ${1}
-      #webpack__angular_dep "${cmds}"
-      #_exit_code $? "Installing dependencies"
-      #cd ..) &
+      ( cd ${1}
+      webpack__angular_dep "${cmds}"
+      _exit_code $? "Installing dependencies"
+      cd ..) &
 
       webpack__info "Dependencies npm installed"
 
@@ -152,9 +152,9 @@ function _build_tree() {
   webpack__angular_style "${css}"
   _exit_code $? "webpack__angular_style"
 
-  #webpack__info "Download angular quickstart image"
-  #webpack__angular_image "${images}"
-  #_exit_code $? "webpack__angular_image"
+  webpack__info "Download angular quickstart image"
+  webpack__angular_image "${images}"
+  _exit_code $? "webpack__angular_image"
 
 }
 
