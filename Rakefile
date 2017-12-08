@@ -103,6 +103,18 @@ namespace :book do
     puts "=== PDF output at build/bronet.pdf "
   end
 
+  desc 'build Angular study'
+  task :angular => :prebuild do
+    copyImages("./angular2/images/*","build/images_angular")
+    puts "=== [ANGULAR] Convertiong to HTML..."
+    `bundle exec asciidoctor angular2/angular.adoc --destination-dir=build`
+    puts "=== HTML output at build/angular.html"
+
+    puts "Converting to PDF... (this one takes a while)"
+    `bundle exec asciidoctor angular2/angular.adoc --destination-dir=build --backend=pdf --require=asciidoctor-pdf `
+    puts "=== PDF output at build/angular.pdf "
+  end
+
   desc 'build all study notes'
   task :all  => %W[bem concurrency javasec javaee nodejs pwapp struts2 bronet] do
     puts "=== ALL DONE...! BYE...!"
@@ -126,7 +138,7 @@ namespace :dist do
 
   desc 'dist angular Setup Bash Script'
   task :angular => :predist do
-    zip_dir('angular2','dist/angular.zip')
+    zip_dir('angular2/config','dist/angular.zip')
   end
 
   desc 'dist jboss Setup Bash Script'

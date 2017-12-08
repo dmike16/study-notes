@@ -1,8 +1,8 @@
-= Struts2
+= Angular
 :author: dmike
 :email: cipmiky@gmail.com
 :revnumber: 1.0
-:revdate: August 20 2017
+:revdate: November 22 2017
 :revremark: Concepts of {doctitle}
 :doctype: book
 :toc: left
@@ -12,8 +12,7 @@
 :sectlinks:
 :icons: font
 :icon-set: fa
-:imagesdir: ../build/images_strut2
+:imagesdir: ../target/images_angular
 
-include::{includedir}/big-picture.adoc[]
 
-include::{includedir}/interceptors.adoc[]
+include::{includedir}/architecture.adoc[]

@@ -12,7 +12,7 @@
 :sectlinks:
 :icons: font
 :icon-set: fa
-:imagesdir: ../target/images_pwapp
+:imagesdir: ../build/images_pwapp
 
 include::{includedir}/register-service-worker.adoc[]
 
