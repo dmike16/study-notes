@@ -15,7 +15,7 @@
 # Returns:
 #  Cat exit status
 # ============================================================================ #
-function webpack__path_helper() {
+function setup__path_helper() {
   cat > ${1}/helper.js <<HELPER
 const path = require('path');
 const _root = path.resolve(__dirname,'../..');
@@ -39,7 +39,7 @@ HELPER
 # Returns:
 #  Cat exit status
 # ============================================================================ #
-function webpack__config_common() {
+function setup__config_common() {
   cat > ${1}/webpack.common.js <<COMMON
 const helper = require('./helper');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -138,7 +138,7 @@ COMMON
 # Returns:
 #  cat exit status
 # ============================================================================ #
-function webpack__config_dev() {
+function setup__config_dev() {
   cat >${1}/webpack.dev.js <<DEV
 const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -177,7 +177,7 @@ DEV
 # Returns:
 #  cat exit status
 # ============================================================================ #
-function webpack__config_production() {
+function setup__config_production() {
   cat >${1}/webpack.prod.js <<PROD
 const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -240,7 +240,7 @@ PROD
 # Returns:
 #  cat exit statuts
 # ============================================================================ #
-function webpack__package_json() {
+function setup__package_json() {
   cat > $1/package.json <<PACKAGE
   {
     "name": "$1",
@@ -269,7 +269,7 @@ PACKAGE
 # Returns:
 #  cat exit statuts
 # ============================================================================ #
-function webpack__typescript_config() {
+function setup__typescript_config() {
   cat > ${1}/tsconfig.json <<TSCONFIG
   {
     "compilerOptions": {
@@ -299,7 +299,7 @@ TSCONFIG
 # Returns:
 #  cat exit statuts
 # ============================================================================ #
-function webpack__polyfill_ts() {
+function setup__polyfill_ts() {
   cat > ${1}/polyfills.ts <<POLYFILL
 import 'core-js/es6';
 import 'core-js/es7/reflect';
@@ -324,7 +324,7 @@ POLYFILL
 # Returns:
 #  cat exit statuts
 # ============================================================================ #
-function webpack__vendor_ts() {
+function setup__vendor_ts() {
   cat > ${1}/vendor.ts <<VENDOR
 // Angular
 import '@angular/platform-browser';
@@ -353,7 +353,7 @@ VENDOR
 # Returns:
 #  cat exit status
 # ============================================================================ #
-function webpack__angular_bootstrap() {
+function setup__angular_bootstrap() {
 ## index.html
   cat > ${1}/index.html <<INDEX
 <!DOCTYPE html>
@@ -396,7 +396,7 @@ MAIN
 # Returns:
 #  cat exit status
 # ============================================================================ #
-function webpack__angular_comp() {
+function setup__angular_comp() {
 ## app typescript
   cat > ${1}/app.component.ts<<APPTS
 import { Component } from '@angular/core';
@@ -463,7 +463,7 @@ APPMODULE
 # Returns:
 #  Cat exit status
 # ============================================================================ #
-function webpack__gulp_setup() {
+function setup__gulp_setup() {
   ## gulpfile
   cat > ${1}/gulpfile.js <<GULP
 /**
@@ -600,7 +600,7 @@ BUILD
 # Returns:
 #  cat exit status
 # ============================================================================ #
-function webpack__angular_style() {
+function setup__angular_style() {
   cat > ${1}/styles.scss<<STYLES
 body {
     background: #0147A7;
@@ -618,7 +618,7 @@ STYLES
 # Returns:
 #
 # ============================================================================ #
-function webpack__angular_image() {
+function setup__angular_image() {
   curl -L# https://angular.io/assets/images/logos/angular/angular.png -o "${1}/angular.png"
   return 0
 }
@@ -631,7 +631,7 @@ function webpack__angular_image() {
 # Returns:
 #  npm command exit statuts
 # ============================================================================ #
-function webpack__angular_dep() {
+function setup__angular_dep() {
   local cmd;
   cmd=${1}
   ${cmd[0]} @angular/common @angular/compiler @angular/core \

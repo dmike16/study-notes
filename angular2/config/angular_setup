@@ -10,7 +10,7 @@
 #  Entry Point  : Main function
 # ============================================================================ #
 
-source webpack/utils.bash
+source configuration/setup.bash
 source logging/logging.bash
 
 E_BADARGS=85
@@ -67,15 +67,15 @@ function _build_tree() {
       logging__info "Project already initialized. Use npm i --save[-dev] [package] \
        to install new dependencies"
   else
-      webpack__package_json "$1" "$2" "$3" "$4"
-      _exit_code $? "webpack__package_json"
+      setup__package_json "$1" "$2" "$3" "$4"
+      _exit_code $? "setup__package_json"
 
       logging__info "Project npm initialized"
 
-      ( cd ${1}
-      webpack__angular_dep "${cmds}"
-      _exit_code $? "Installing dependencies"
-      cd ..) &
+      #( cd ${1}
+      #setup__angular_dep "${cmds}"
+      #_exit_code $? "Installing dependencies"
+      #cd ..) &
 
       logging__info "Dependencies npm installed"
 
@@ -110,52 +110,52 @@ function _build_tree() {
   _exit_code $? "mkdir"
 
   logging__info "Create helper.js"
-  webpack__path_helper "${config}"
-  _exit_code $? "webpack__path_helper"
+  setup__path_helper "${config}"
+  _exit_code $? "setup__path_helper"
 
   logging__info "Create webpack.common.js"
-  webpack__config_common "${config}"
-  _exit_code $? "webpack__config_common"
+  setup__config_common "${config}"
+  _exit_code $? "setup__config_common"
 
   logging__info "Create webpack.dev.js"
-  webpack__config_dev "${config}"
-  _exit_code $? "webpack__config_dev"
+  setup__config_dev "${config}"
+  _exit_code $? "setup__config_dev"
 
   logging__info "Create webpack.prod.js"
-  webpack__config_production "${config}" "${1}"
-  _exit_code $? "webpack__config_production"
+  setup__config_production "${config}" "${1}"
+  _exit_code $? "setup__config_production"
 
   logging__info "Create tsconfig.json"
-  webpack__typescript_config "${src}"
-  _exit_code $? "webpack__typescript_config"
+  setup__typescript_config "${src}"
+  _exit_code $? "setup__typescript_config"
 
   logging__info "Create gulp setup"
-  webpack__gulp_setup "${1}" "${gulp_task}"
-  _exit_code $? "webpack__gulp_setup"
+  setup__gulp_setup "${1}" "${gulp_task}"
+  _exit_code $? "setup__gulp_setup"
 
   logging__info "Create polyfill.ts"
-  webpack__polyfill_ts "${src}"
-  _exit_code $? "webpack__polyfill_ts"
+  setup__polyfill_ts "${src}"
+  _exit_code $? "setup__polyfill_ts"
 
   logging__info "Create vendor.ts"
-  webpack__vendor_ts "${src}"
-  _exit_code $? "webpack__vendor_ts"
+  setup__vendor_ts "${src}"
+  _exit_code $? "setup__vendor_ts"
 
   logging__info "Create bootstrap file"
-  webpack__angular_bootstrap "${src}"
-  _exit_code $? "webpack__angular_bootstrap"
+  setup__angular_bootstrap "${src}"
+  _exit_code $? "setup__angular_bootstrap"
 
   logging__info "Create first app component file"
-  webpack__angular_comp "${app}"
-  _exit_code $? "webpack__angular_comp"
+  setup__angular_comp "${app}"
+  _exit_code $? "setup__angular_comp"
 
   logging__info "Create global css style"
-  webpack__angular_style "${css}"
-  _exit_code $? "webpack__angular_style"
+  setup__angular_style "${css}"
+  _exit_code $? "setup__angular_style"
 
-  logging__info "Download angular quickstart image"
-  webpack__angular_image "${images}"
-  _exit_code $? "webpack__angular_image"
+  #logging__info "Download angular quickstart image"
+  #setup__angular_image "${images}"
+  #_exit_code $? "setup__angular_image"
 
 }
 
@@ -189,6 +189,7 @@ function _check_dependecies() {
 
 function main(){
   logging__info "Enter function: ${FUNCNAME}"
+
 
   local project_name
   local description
