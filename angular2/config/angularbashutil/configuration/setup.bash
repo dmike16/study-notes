@@ -241,7 +241,7 @@ PROD
 #  cat exit statuts
 # ============================================================================ #
 function setup__package_json() {
-  cat > $1/package.json <<PACKAGE
+  cat > package.json <<PACKAGE
   {
     "name": "$1",
     "version": "1.0.0",

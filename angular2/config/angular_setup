@@ -10,8 +10,8 @@
 #  Entry Point  : Main function
 # ============================================================================ #
 
-source configuration/setup.bash
-source logging/logging.bash
+source angularbashutil/configuration/setup.bash
+source angularbashutil/logging/logging.bash
 
 E_BADARGS=85
 E_COMMAND_NOT_FOUND=127
@@ -47,10 +47,10 @@ function _build_tree() {
   local css
   local images
 
-  tools=${1}/tools
+  tools=${PWD}/tools
   config=${tools}/config
   gulp_task=${tools}/gulp-task
-  src=${1}/src
+  src=${PWD}/src
   app=${src}/app
   assets=${src}/assets
   css=${assets}/css
@@ -58,12 +58,12 @@ function _build_tree() {
 
   logging__info "Setup Project ${1}"
 
-  mkdir -p ${1}
-  _exit_code $? "mkdir"
-  logging__info "Create direcotry ${1}"
+  #mkdir -p ${1}
+  #_exit_code $? "mkdir"
+  #logging__info "Create direcotry ${1}"
 
 
-  if [[ -e "./${1}/package-lock.json" ]]; then
+  if [[ -e "${PWD}/package-lock.json" ]]; then
       logging__info "Project already initialized. Use npm i --save[-dev] [package] \
        to install new dependencies"
   else
@@ -130,7 +130,7 @@ function _build_tree() {
   _exit_code $? "setup__typescript_config"
 
   logging__info "Create gulp setup"
-  setup__gulp_setup "${1}" "${gulp_task}"
+  setup__gulp_setup "${PWD}" "${gulp_task}"
   _exit_code $? "setup__gulp_setup"
 
   logging__info "Create polyfill.ts"
@@ -204,17 +204,17 @@ function main(){
   _check_dependecies
   _build_tree "${project_name}" "${description}" "${license}" "${author}"
 
-  if [[ -e "${project_name}/.initialized" ]]; then
+  if [[ -e "${PWD}/.initialized" ]]; then
     :
   else
     logging__info "Waiting for install dependencies process"
     wait
-    rm -f ${project_name}/.initialized
+    rm -f ${PWD}/.initialized
   fi
 
   logging__info "Return function: ${FUNCNAME} in ${SECONDS}s"
 
-  if [[ -e "${project_name}"/node_modules ]]; then
+  if [[ -e "${PWD}"/node_modules ]]; then
     echo "# ============================================== #"
     echo "#                                                #"
     echo "# The project ${project_name} is initialized.    #"
