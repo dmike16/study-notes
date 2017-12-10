@@ -53,7 +53,7 @@ function generator__factory() {
       generator_pipe "$2" "$3"
       r_code=$?
       ;;
-    "*")
+    *)
       r_code=127
       ;;
   esac
