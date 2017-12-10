@@ -59,9 +59,6 @@ function _build_tree() {
 
   logging__info "Setup Project ${1}"
 
-  #mkdir -p ${1}
-  #_exit_code $? "mkdir"
-  #logging__info "Create direcotry ${1}"
 
 
   if [[ -e "${PWD}/package-lock.json" ]]; then
