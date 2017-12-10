@@ -70,10 +70,10 @@ function _build_tree() {
 
       logging__info "Project npm initialized"
 
-      #( cd ${1}
+      #(
       #setup__angular_dep "${cmds}"
       #_exit_code $? "Installing dependencies"
-      #cd ..) &
+      #) &
 
       logging__info "Dependencies npm installed"
 
@@ -180,6 +180,8 @@ function _check_dependecies() {
   else
     npm_version=$(npm -v)
     _exit_code $? "npm"
+    cmds[0]="npm install"
+    cmds[1]="npm install --save-dev"
     logging__info "NPM TEST: Version ${npm_version}"
   fi
 }
