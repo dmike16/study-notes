@@ -413,7 +413,7 @@ export class AppComponent {
 }
 APPTS
 ## app css
-  cat > ${1}/app.component.css <<APPCSS
+  cat > ${1}/app.component.scss <<APPCSS
 main {
   padding: 1em;
   font-family: Arial, Helvetica, sans-serif;

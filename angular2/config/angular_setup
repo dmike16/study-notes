@@ -12,9 +12,10 @@
 
 source angularbashutil/configuration/setup.bash
 source angularbashutil/logging/logging.bash
+source angularbashutil/generators/factory_generator.bash
 
-E_BADARGS=85
-E_COMMAND_NOT_FOUND=127
+readonly E_BADARGS=85
+readonly E_COMMAND_NOT_FOUND=127
 
 declare -a cmds
 
@@ -186,11 +187,7 @@ function _check_dependecies() {
   fi
 }
 
-
-function main(){
-  logging__info "Enter function: ${FUNCNAME}"
-
-
+function init_project() {
   local project_name
   local description
   local license
@@ -231,6 +228,20 @@ function main(){
     echo "#                                                #"
     echo "# ============================================== #"
   fi
+}
+
+function main(){
+  logging__info "Enter function: ${FUNCNAME}"
+
+  if [[ "$1" == "generate" ]]; then
+    shift
+    generator__factory "$@"
+    _exit_code "$?" "generator__factory"
+    return
+  fi
+
+  init_project "$@"
+
 }
 
 main "$@"
