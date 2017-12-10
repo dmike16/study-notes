@@ -632,12 +632,10 @@ function setup__angular_image() {
 #  npm command exit statuts
 # ============================================================================ #
 function setup__angular_dep() {
-  local cmd;
-  cmd=${1}
-  ${cmd[0]} @angular/common @angular/compiler @angular/core \
+  ${0} @angular/common @angular/compiler @angular/core \
   @angular/forms @angular/http @angular/platform-browser  \
   @angular/platform-browser-dynamic @angular/router core-js rxjs zone.js && \
-  ${cmd[1]} @types/node @types/jasmine angular2-template-loader \
+  ${1} @types/node @types/jasmine angular2-template-loader \
   awesome-typescript-loader css-loader extract-text-webpack-plugin file-loader \
   html-loader html-webpack-plugin jasmine-core raw-loader style-loader \
   typescript webpack webpack-dev-server webpack-merge clean-webpack-plugin \

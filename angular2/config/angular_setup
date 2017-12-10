@@ -71,7 +71,7 @@ function _build_tree() {
       logging__info "Project npm initialized"
 
       #(
-      #setup__angular_dep "${cmds}"
+      #setup__angular_dep "${cmds[0]}" "${cmds[1]}"
       #_exit_code $? "Installing dependencies"
       #) &
 
