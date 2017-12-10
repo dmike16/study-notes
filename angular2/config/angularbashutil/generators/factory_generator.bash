@@ -31,26 +31,27 @@ function generator__factory() {
   logging__info "Generating code for ${1}"
   local r_code
   local module
-
-  case "$1" in
+  local type=$1
+  shift
+  case "${type}" in
     "module" )
-      generator_module "$2"
+      generator_module "$@"
       r_code=$?
       ;;
     "component")
-      generator_component "$2" "$3"
+      generator_component "$@"
       r_code=$?
       ;;
     "provider")
-      generator_provider "$2" "$3"
+      generator_provider "$@"
       r_code=$?
       ;;
     "directive")
-      generator_directive "$2" "$3" "$4"
+      generator_directive "$@"
       r_code=$?
       ;;
     "pipe")
-      generator_pipe "$2" "$3"
+      generator_pipe "$@"
       r_code=$?
       ;;
     *)

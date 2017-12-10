@@ -10,16 +10,18 @@ function generator_component() {
     logging__info "Generating component ${1}"
     local module
     local component
+    local prefix
 
     component=${1##*/}
     module=${2:-"app"}
+    prefix=${3:-${module}}
     ## Check project initialized
     if [[ -d "./src" ]]; then
       if [[ -d "src/${module}" ]]; then
-        __generator__create_component "${1}" "src/${module}" || return $?
+        __generator__create_component "${1}" "src/${module}" "${prefix}" || return $?
         logging__info "Add the component ${component} to the module ${module}"
       else
-        logging__error "Project not initialized"
+        logging__error "Module ${module} not found"
         return 1
       fi
     else
@@ -54,7 +56,7 @@ function __generator__create_component() {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: '${2##*/}-${component}',
+  selector: '${prefix}-${component}',
   templateUrl: './${component}.component.html',
   styleUrls: ['./${component}.component.scss']
 })
