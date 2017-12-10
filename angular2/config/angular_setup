@@ -236,7 +236,7 @@ function main(){
   if [[ "$1" == "generate" ]]; then
     shift
     generator__factory "$@"
-    _exit_code "$?" "generator__factory"
+    _exit_code "$?" "$1 in generator__factory"
     return
   fi
 
