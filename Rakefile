@@ -115,6 +115,18 @@ namespace :book do
     puts "=== PDF output at build/angular.pdf "
   end
 
+  desc 'build RxJs study'
+  task :rxjs => :prebuild do
+    copyImages("./rxjs/images/*","build/images_rxjs")
+    puts "=== [RXJS] Convertiong to HTML..."
+    `bundle exec asciidoctor rxjs/rxjs.adoc --destination-dir=build`
+    puts "=== HTML output at build/rxjs.html"
+
+    puts "Converting to PDF... (this one takes a while)"
+    `bundle exec asciidoctor rxjs/rxjs.adoc --destination-dir=build --backend=pdf --require=asciidoctor-pdf `
+    puts "=== PDF output at build/rxjs.pdf "
+  end
+
   desc 'build all study notes'
   task :all  => %W[bem concurrency javasec javaee nodejs pwapp struts2 bronet] do
     puts "=== ALL DONE...! BYE...!"

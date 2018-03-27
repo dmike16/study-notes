@@ -1,0 +1,16 @@
+== Observable
+
+Observable are lazy *Push* collections of multiple values. They emit some value, but are lazy to see those
+values we need to subscribe to them. It's the only way to call an Observable.
+
+=== Push vs Pull
+
+In a pull system the consumer determined when it receives the data from the producer. 
+In a push system the producer deciedes whene delivers dato to the consumer.
+
+|===
+| | Producer | Consumer
+
+| Pull | Passive | Active
+| Push | Active  | Passive
+|===
