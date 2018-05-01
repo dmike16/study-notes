@@ -127,6 +127,18 @@ namespace :book do
     puts "=== PDF output at build/rxjs.pdf "
   end
 
+  desc 'build Nginx conf"'
+  task :nginx => :prebuild do
+    copyImages("./rxjs/images/*","build/images_nginx")
+    puts "=== [nginx] Convertiong to HTML..."
+    `bundle exec asciidoctor nginx/nginx.adoc --destination-dir=build`
+    puts "=== HTML output at build/nginx.html"
+
+    puts "Converting to PDF... (this one takes a while)"
+    `bundle exec asciidoctor nginx/nginx.adoc --destination-dir=build --backend=pdf --require=asciidoctor-pdf `
+    puts "=== PDF output at build/nginx.pdf "
+  end
+
   desc 'build all study notes'
   task :all  => %W[bem concurrency javasec javaee nodejs pwapp struts2 bronet] do
     puts "=== ALL DONE...! BYE...!"
