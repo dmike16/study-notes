@@ -28,3 +28,14 @@ NOTE: Subscribe to observables is like calling a function. observables can deliv
 or *sync*
 
 The difference with functions is that observables can return multiple values over the time.
+
+=== Anatomy of an Observable
+
+Principal concepts of observables are:
+
+* *creating* observables
+* *subscrubing* to observables
+* *executing* observables
+* *disposing* observables
+
+==== Creating Observables

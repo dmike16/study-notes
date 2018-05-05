@@ -67,16 +67,16 @@ namespace :book do
     puts "=== PDF output at build/nodejs.pdf "
   end
 
-  desc 'build pwapp'
-  task :pwapp => :prebuild do
-    copyImages("./pwapp/images/*","build/images_pwapp/")
-    puts "=== [PWAPP] Converting to HTML..."
-    `bundle exec asciidoctor pwapp/pwapp.adoc --destination-dir=build`
-    puts "=== HTML output at build/pwapp.html"
+  desc 'build webfundamentals'
+  task :webfundamentals => :prebuild do
+    copyImages("./webfundamentals/images/*","build/images_webfundamentals/")
+    puts "=== [webfundamentals] Converting to HTML..."
+    `bundle exec asciidoctor webfundamentals/webfundamentals.adoc --destination-dir=build`
+    puts "=== HTML output at build/webfundamentals.html"
 
     puts "Converting to PDF... (this one takes a while)"
-    `bundle exec asciidoctor pwapp/pwapp.adoc --destination-dir=build --backend=pdf --require=asciidoctor-pdf `
-    puts "=== PDF output at build/pwapp.pdf "
+    `bundle exec asciidoctor webfundamentals/webfundamentals.adoc --destination-dir=build --backend=pdf --require=asciidoctor-pdf `
+    puts "=== PDF output at build/webfundamentals.pdf "
   end
 
   desc 'build struts2'
@@ -140,7 +140,7 @@ namespace :book do
   end
 
   desc 'build all study notes'
-  task :all  => %W[bem concurrency javasec javaee nodejs pwapp struts2 bronet] do
+  task :all  => %W[bem concurrency javasec javaee nodejs webfundamentals struts2 bronet] do
     puts "=== ALL DONE...! BYE...!"
   end
 

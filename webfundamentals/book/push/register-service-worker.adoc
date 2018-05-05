@@ -1,4 +1,4 @@
-== Register a Service Worker
+=== Register a Service Worker
 :sectanchors:
 
 First thing to do is register a service worker. This is done cheking if

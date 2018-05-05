@@ -1,10 +1,10 @@
-== Web Push Protocol
+=== Web Push Protocol
 :sectanchors:
 
 .WebPush Flow
 image::web-push.svg[]
 
-=== Web Push VAPID
+==== Web Push VAPID
 
 *VAPID*(Voluntary Application Server Identifier) it's a system whereby an application
 server can identify itself to the push server. The step to build a VAPID are:
@@ -22,7 +22,7 @@ generated above using a ES256 algorithm
 .VAPID
 image::vapid.svg[]
 
-=== Jason Web Token (JWT)
+==== Jason Web Token (JWT)
 
 The JWT is a way of sending informations to third party so that the reciver can
 validate who sent it. A signed JWT is just three strings diveded by a dot.
