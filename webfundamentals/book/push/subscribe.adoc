@@ -1,4 +1,4 @@
-== Subscribe
+=== Subscribe
 :sectanchors:
 
 To subscribe we use the function `subscribe()` from PushManager API.

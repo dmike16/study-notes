@@ -1,4 +1,4 @@
-== Unsubscribe
+=== Unsubscribe
 :sectanchors:
 
 To unsubscribe a user from web push notification, we have to get the subscribtion
