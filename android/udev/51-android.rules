@@ -1,0 +1,7 @@
+# General Mobile 6
+SUBSYSTEM=="usb", ATTR{idVendor}=="271d", MODE="0660", GROUP="plugdev"
+SUBSYSTEM=="usb",ATTR{idVendor}=="271d",ATTR{idProduct}=="3c01",SYMLINK+="android_adb"
+#SUBSYSTEM=="usb",ATTR{idVendor}=="[VENDOR ID]",ATTR{idProduct}=="[PRODUCT ID]",SYMLINK+="android_fastboot"
+# Tichwatch pro
+SUBSYSTEM=="usb", ATTR{idVendor}=="05c6", MODE="0660", GROUP="plugdev"
+SUBSYSTEM=="usb",ATTR{idVendor}=="05c6",ATTR{idProduct}=="90bc",SYMLINK+="android_adb"
