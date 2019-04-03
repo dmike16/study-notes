@@ -1,0 +1,17 @@
+#######################
+# Bazel configuration
+#######################
+
+# Cache directory
+build --repository_cache=~/.bazel_cache/study-notes
+test --repository_cache=~/.bazel_cache/study-notes
+run --repository_cache=~/.bazel_cache/study-notes
+
+# Symlink prefix for out directory
+build --symlink_prefix=dist/
+
+# A more useful default output mode for bazel query.
+query --output=label_kind
+
+# By default test error are not printed to output
+test --test_output=errors

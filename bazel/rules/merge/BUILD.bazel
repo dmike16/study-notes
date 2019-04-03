@@ -1,0 +1,5 @@
+sh_binary(
+    name = "merge_tool",
+    srcs = ["merge.sh"],
+    visibility = ["//visibility:public"]
+)

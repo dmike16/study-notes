@@ -1,0 +1,19 @@
+load("//merge:index.bzl", "merge")
+
+merge(
+    name = "bazelrc",
+    chunks = [
+        ".bazelrc"
+    ]
+)
+
+merge(
+    name = "build_workspace",
+    chunks = [
+        "BUILD.bazel",
+        "WORKSPACE"
+    ],
+    deps = [
+        ":bazelrc"
+    ]
+)
