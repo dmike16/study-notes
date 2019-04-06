@@ -1,4 +1,5 @@
 *.html_backup/
+bazel-out/
 .DS_Store
 Gemfile.lock
 target/

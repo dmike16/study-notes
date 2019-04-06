@@ -11,7 +11,8 @@ merge(
     name = "build_workspace",
     chunks = [
         "BUILD.bazel",
-        "WORKSPACE"
+        "WORKSPACE",
+        "@protoc//:readme.txt"
     ],
     deps = [
         ":bazelrc"

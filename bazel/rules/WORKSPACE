@@ -1,1 +1,4 @@
 workspace(name = "rules")
+
+load("//repo:protoc_repo.bzl", "protoc_repositories")
+protoc_repositories()
