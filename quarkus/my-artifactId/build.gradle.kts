@@ -30,14 +30,14 @@ dependencies {
 group = "dl.dual-lab"
 version = "1.0.0"
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
+//java {
+//    sourceCompatibility = JavaVersion.VERSION_1_8
+//    targetCompatibility = JavaVersion.VERSION_1_8
+//}
 
-tasks.compileJava {
-    options.compilerArgs.addAll(listOf("-parameters"))
-}
+//tasks.compileJava {
+//    options.compilerArgs.addAll(listOf("-parameters"))
+//}
 
 tasks.buildNative {
     isEnableHttpUrlHandler = true
