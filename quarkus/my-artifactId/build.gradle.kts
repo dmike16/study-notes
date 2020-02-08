@@ -30,3 +30,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+tasks.compileJava {
+    options.compilerArgs.addAll(listOf("-parameters"))
+}
+
