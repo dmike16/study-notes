@@ -1,0 +1,8 @@
+{
+	"private": true,
+	"packages": [
+		"spa/react",
+		"spa/angular/single-spa-root",
+		"spa/angular/my-app"
+	]
+}

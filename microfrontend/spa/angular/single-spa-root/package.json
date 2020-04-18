@@ -1,0 +1,13 @@
+{
+  "name": "single-spa-root",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "serve -s -l 3100"
+  },
+  "devDependencies": {
+    "serve": "^11.3.0"
+  }
+}
