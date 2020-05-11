@@ -13,7 +13,7 @@ mode := color_
 debug := @
 
 project_name := chp02
-src_root := types
+src_root := utils
 dep_root := $(empty)
 mod_name := com.github/dmike16/study-notes/types
 

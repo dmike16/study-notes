@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"com.github/dmike16/study-notes/types/utils"
 )
 
 func main() {
@@ -14,6 +15,12 @@ func main() {
 	fmt.Println(s[1], s[4:8])
 	r := []rune(s)
 	fmt.Printf("%x\n" ,r)
+	fmt.Println(utils.InvertString(s))
+
+	var fup = utils.FlagUp | utils.FlagMulticast
+	fmt.Printf("%b %t\n", fup, fup.IsUp())
+	fup.TurnDown()
+	fmt.Printf("%b %t\n", fup, fup.IsUp())
 }
 
 const (
