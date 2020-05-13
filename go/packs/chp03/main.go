@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"com.github/dmike16/study-notes/composite-types/utils"
+	"com.github/dmike16/study-notes/composite-types/utils/github"
 )
 
 func main(){
@@ -44,5 +45,7 @@ func main(){
 	var graph utils.Graph = make(map[string]map[string]bool)
 	graph.AddEdge("pippo", "pluto")
 	fmt.Printf("Has(%s) = %t\n", "pippo", graph.HasEdge("pippo", "pluto"))
-	
+
+	result, err  := github.SearchIssues([]string{"repo:golang/go", "is:open", "json", "decoder"})
+	fmt.Printf("result = %d - %v\n", result.TotalCount, err)
 }
