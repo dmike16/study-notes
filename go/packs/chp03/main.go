@@ -3,9 +3,24 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
+	"log"
+	"text/template"
 	"com.github/dmike16/study-notes/composite-types/utils"
 	"com.github/dmike16/study-notes/composite-types/utils/github"
 )
+
+const templ = `{{.TotalCount}} iusse:
+{{range .Items}}-----------------------------
+Number: {{.Number}}
+User  : {{.User.Login}}
+Title : {{.Title | printf "%.64s"}}
+Age   : {{.CreatedAt | daysAgo}} days
+{{end}}`
+
+func daysAgo(t time.Time) int {
+	return int(time.Since(t).Hours() / 24)
+}
 
 func main(){
 	var sum = utils.ArrayExample()
@@ -47,5 +62,11 @@ func main(){
 	fmt.Printf("Has(%s) = %t\n", "pippo", graph.HasEdge("pippo", "pluto"))
 
 	result, err  := github.SearchIssues([]string{"repo:golang/go", "is:open", "json", "decoder"})
-	fmt.Printf("result = %d - %v\n", result.TotalCount, err)
+	var report = template.Must(template.New("iusselist").Funcs(template.FuncMap{"daysAgo": daysAgo}).Parse(templ))
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err := report.Execute(os.Stdout, result); err != nil {
+		log.Fatal(err)
+	}
 }
