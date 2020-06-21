@@ -1,7 +1,7 @@
 let mapleader = ','
 let maplocalleader = '//'
 
-"minpac start------------
+"minpac start------------ {{{
 packadd minpac
 call minpac#init()
 
@@ -14,23 +14,23 @@ call minpac#add('radenling/vim-dispatch-neovim')
 call minpac#add('leafgarland/typescript-vim')
 call minpac#add('mhinz/vim-grepper')
 call minpac#add('janko-m/vim-test')
+call minpac#add('preservim/nerdtree')
 
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 command! PackUpdate call minpac#update()
 command! PackClean call minpac#clean()
-"minpac end--------------
+" }}}
 
-"theme start-------------
+"theme start------------- {{{
 set background=dark
 colorscheme hybrid_material
-"theme end---------------
+"}}}
 
-"Fuzzy search start-------------
+"Fuzzy search start------------- {{{
 nnoremap <C-p> :<C-u>FZF<CR>
-"Fuzzy search end---------------
+" }}}
 
-set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
-"Ggrep start-------------
+"Ggrep start------------- {{{
 let g:grepper = {}
 let g:grepper.tools = ['rg', 'grep']
 
@@ -39,9 +39,9 @@ nnoremap <Leader>g : Grepper -tool rg<CR>
 nnoremap <Leader>* :Grepper -cword -noprompt<CR>
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
-"Grep end---------------
+" }}}
 
-"map config start-------
+"map config start------- {{{
 inoremap <c-u> <esc>viwUi
 inoremap <c-l> <esc>viwui
 inoremap jk <esc>
@@ -51,15 +51,29 @@ nnoremap <Leader>" viw<esc>a"<esc>bi"<esc>lel
 nnoremap <Leader>' viw<esc>a'<esc>bi'<esc>lel
 vnoremap <Leader>' <esc>`<i'<esc>`>a'<esc>
 vnoremap <Leader>" <esc>`<i"<esc>`>a"<esc>
-"map config end---------
+vnoremap <c-r> "0y:%s/<c-r>0//gc<left><left><left>
+" }}}
 
-"Common start-----------
-"Common end-------------
+"Common start----------- {{{
+set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+" }}}
 
-"js,ts start --------------
+"js,ts start -------------- {{{
 augroup filetype_js_ts
   autocmd!
   autocmd Filetype javascript nnoremap <buffer> <localleader>c I//<esc>
   autocmd Filetype typescript nnoremap <buffer> <localleader>c I//<esc>
 augroup END
-"js, ts end  --------------
+" }}}
+" vim start --------------- {{{
+augroup filetype_vim
+  autocmd!
+  autocmd Filetype vim setlocal foldmethod=marker
+augroup END
+" }}}
+" NerdTree start ---------------------- {{{
+nmap <c-n> : NERDTreeToggle<CR>
+" }}}
+" Vim test --------------------- {{{
+let test#custom_runners = {'typescript': ['deno']}
+" }}}
