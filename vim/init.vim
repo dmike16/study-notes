@@ -71,6 +71,11 @@ nnoremap <c-t><left> :tabp<cr>
 nnoremap <c-t><right> :tabn<cr>
 " switch back to normal mode from terminal mode
 tnoremap <esc> <c-\><c-n>
+" quickfix navigation
+nnoremap [q :cprev<cr>
+nnoremap ]q :cnext<cr>
+nnoremap [Q :cfirst<cr>
+nnoremap ]Q :clast<cr>
 " }}}
 
 "Common start----------- {{{
@@ -100,4 +105,12 @@ let test#custom_runners = {'typescript': ['deno']}
 if executable('nvr')
   let $VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
 endif
+" }}}
+" Fugitive plugin ------ {{{
+augroup fugitive
+  autocmd!
+  autocmd User fugitive if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' nnoremap <buffer> .. :edit %:h<cr>
+  autocmd BufReadPost fugitive://* set bufhidden=delete
+augroup END
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " }}}
