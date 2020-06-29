@@ -15,6 +15,13 @@ call minpac#add('leafgarland/typescript-vim')
 call minpac#add('mhinz/vim-grepper')
 call minpac#add('janko-m/vim-test')
 call minpac#add('preservim/nerdtree')
+call minpac#add('Xuyuanp/nerdtree-git-plugin')
+call minpac#add('tpope/vim-obsession')
+call minpac#add('sgur/vim-editorconfig')
+call minpac#add('jiangmiao/auto-pairs')
+call minpac#add('mattn/emmet-vim')
+call minpac#add('airblade/vim-gitgutter')
+call minpac#add('tpope/vim-fugitive')
 
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 command! PackUpdate call minpac#update()
@@ -42,16 +49,28 @@ xmap gs <plug>(GrepperOperator)
 " }}}
 
 "map config start------- {{{
+"upper case and lower case the word under cursor
 inoremap <c-u> <esc>viwUi
 inoremap <c-l> <esc>viwui
+" back in normal mode
 inoremap jk <esc>
+" edit and source config file
 nnoremap <Leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <Leader>sv :source $MYVIMRC<CR>
+" surround with single and double quote
 nnoremap <Leader>" viw<esc>a"<esc>bi"<esc>lel
 nnoremap <Leader>' viw<esc>a'<esc>bi'<esc>lel
 vnoremap <Leader>' <esc>`<i'<esc>`>a'<esc>
 vnoremap <Leader>" <esc>`<i"<esc>`>a"<esc>
+" search selection
 vnoremap <c-r> "0y:%s/<c-r>0//gc<left><left><left>
+" tab navigation
+nnoremap <c-t><up> :tabr<cr>
+nnoremap <c-t><down> :tabl<cr>
+nnoremap <c-t><left> :tabp<cr>
+nnoremap <c-t><right> :tabn<cr>
+" switch back to normal mode from terminal mode
+tnoremap <esc> <c-\><c-n>
 " }}}
 
 "Common start----------- {{{
@@ -76,4 +95,9 @@ nmap <c-n> : NERDTreeToggle<CR>
 " }}}
 " Vim test --------------------- {{{
 let test#custom_runners = {'typescript': ['deno']}
+" }}}
+" Prevent netest nvim instances ---- {{{
+if executable('nvr')
+  let $VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+endif
 " }}}
