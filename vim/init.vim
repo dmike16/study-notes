@@ -22,6 +22,10 @@ call minpac#add('jiangmiao/auto-pairs')
 call minpac#add('mattn/emmet-vim')
 call minpac#add('airblade/vim-gitgutter')
 call minpac#add('tpope/vim-fugitive')
+call minpac#add('udalov/kotlin-vim')
+call minpac#add('terryma/vim-multiple-cursors')
+call minpac#add('tpope/vim-eunuch')
+call minpac#add('aserebryakov/vim-todo-lists')
 
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 command! PackUpdate call minpac#update()
@@ -79,9 +83,16 @@ nnoremap ]Q :clast<cr>
 " }}}
 
 "Common start----------- {{{
+syntax on
+set title
 set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
 " }}}
-
+" c, start -----------------{{{
+augroup filetype_c
+  autocmd!
+  autocmd Filetype c set tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab
+augroup END
+" }}}
 "js,ts start -------------- {{{
 augroup filetype_js_ts
   autocmd!
@@ -113,4 +124,10 @@ augroup fugitive
   autocmd BufReadPost fugitive://* set bufhidden=delete
 augroup END
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+" }}}
+" Coc config ---------------{{{
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 " }}}
