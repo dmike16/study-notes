@@ -1,0 +1,1 @@
+cmd_/home/dmike/Ideas/shared/study-notes/kernel/modules/general/src/general.mod := { echo  /home/dmike/Ideas/shared/study-notes/kernel/modules/general/src/general.o; echo; } > /home/dmike/Ideas/shared/study-notes/kernel/modules/general/src/general.mod
