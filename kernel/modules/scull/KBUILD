@@ -1,0 +1,42 @@
+#  ############################################################################# #
+#  Author       : dmike
+#  Date         : 2,October 2016
+#  Description  : Principal Make file
+#
+#  Default KBUILD file that does not define only the language variable.
+#  Setting it to 'cc'.
+#
+#  ############################################################################# #
+languages := k-driver
+install_language := k-driver
+mode := color_
+debug := @
+
+src_root := src
+dep_root := $(empty)
+
+# ############################################################################## #
+# Plugin variables definition
+# ############################################################################## #
+KERNELDIR := /lib/modules/$(shell uname -r)/build
+mod_name :=
+
+export KERNELDIR mod_name
+
+#  ############################################################################# #
+#  Command definition.
+#  ############################################################################# #
+CC := gcc
+LD := ld
+RM := rm
+MV := mv
+MKDIR:= mkdir
+AR:= ar
+RANLIB:= ranlib
+DOCKER:= docker
+GIT:= git
+GO:= go
+INSMOD := insmod
+RMMOD := rmmod
+
+export CC LD RM MKDIR AR RANLIB DOCKER GIT GO INSMOD RMMOD 
