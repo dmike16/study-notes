@@ -26,6 +26,10 @@ call minpac#add('udalov/kotlin-vim')
 call minpac#add('terryma/vim-multiple-cursors')
 call minpac#add('tpope/vim-eunuch')
 call minpac#add('aserebryakov/vim-todo-lists')
+call minpac#add('cespare/vim-toml')
+call minpac#add('peitalin/vim-jsx-typescript')
+call minpac#add('mbbill/undotree')
+call minpac#add('jremmen/vim-ripgrep')
 
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 command! PackUpdate call minpac#update()
@@ -39,6 +43,8 @@ colorscheme hybrid_material
 
 "Fuzzy search start------------- {{{
 nnoremap <C-p> :<C-u>FZF<CR>
+let g:fzf_layout = {'window': {'width': 0.8, 'height': 0.8}}
+let $FZF_DEFAULT_OPTS='--reverse'
 " }}}
 
 "Ggrep start------------- {{{
@@ -80,12 +86,56 @@ nnoremap [q :cprev<cr>
 nnoremap ]q :cnext<cr>
 nnoremap [Q :cfirst<cr>
 nnoremap ]Q :clast<cr>
+
+nnoremap <leader>ghw :h <C-R>=expand('<cword>')<CR><CR>
+nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>ghw :h <C-R>=expand('<cword>')<CR><CR>
+nnoremap <leader>pw :Rg <C-R>=expand("<cword>")<CR><CR>
+nnoremap <leader>h :wincmd h<CR>
+nnoremap <leader>j :wincmd j<CR>
+nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>l :wincmd l<CR>
+nnoremap <leader>u :UndotreeShow<CR>
+nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+nnoremap <Leader>ps :Rg<SPACE>
+nnoremap <Leader>pf :Files<CR>
+nnoremap <Leader>+ :vertical resize +5<CR>
+nnoremap <Leader>- :vertical resize -5<CR>
+nnoremap <Leader>rp :resize 100<CR>
+nnoremap <Leader>ee oif err != nil {<CR>log.Fatalf("%+v\n", err)<CR>}<CR><esc>kkI<esc>
+vnoremap K :m '<-2<CR>gv=gv
+vnoremap J :m '>+1<CR>gv=gv
 " }}}
 
 "Common start----------- {{{
 syntax on
 set title
 set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+set guicursor=
+set relativenumber
+set nohlsearch
+set hidden
+set noerrorbells
+set smartindent
+set nu
+set nowrap
+set smartcase
+set noswapfile
+set nobackup
+set undodir=~/.nvim/undodir
+set undofile
+set incsearch
+set scrolloff=8
+set noshowmode
+set cmdheight=2
+set updatetime=50
+set shortmess+=c
+set colorcolumn=80
+highlight ColorColumn ctermbg=0 guibg=lightgrey
+
+let g:netrw_browse_split = 2
+let g:netrw_banner = 0
+let g:netrw_winsize = 25
 " }}}
 " c, start -----------------{{{
 augroup filetype_c
@@ -107,7 +157,7 @@ augroup filetype_vim
 augroup END
 " }}}
 " NerdTree start ---------------------- {{{
-nmap <c-n> : NERDTreeToggle<CR>
+nmap <leader><c-n> : NERDTreeToggle<CR>
 " }}}
 " Vim test --------------------- {{{
 let test#custom_runners = {'typescript': ['deno']}
