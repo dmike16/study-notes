@@ -4,13 +4,21 @@ pub struct Options {
 }
 
 impl Options {
-    pub fn new(args: &[String]) -> Result<Options, &'static str> {
-        if args.len() < 3 {
-            return Err("not enough arguments");
-        }
+    pub fn new(mut args: std::env::Args) -> Result<Options, &'static str> {
+        args.next();
 
-        let query = args[1].clone();
-        let filename = args[2].clone();
+
+        let query = if let  Some(val) = args.next() {
+            val
+        } else{
+            return Err("Didn't get a query string");
+        };
+
+        let filename = if let Some(val) = args.next() {
+            val
+        } else {
+            return Err("Didn't specify a filename");
+        };
 
         Ok(Options {query, filename})
     }
