@@ -1,0 +1,19 @@
+#!/bin/sh
+
+case "$1" in
+  lock)
+    i3lock
+    ;;
+  logout)
+    i3-msg exit
+    ;;
+  reboot)
+    systemctl reboot
+    ;;
+  shutdown)
+    systemctl poweroff
+    ;;
+  *)
+    exit 2
+esac
+
