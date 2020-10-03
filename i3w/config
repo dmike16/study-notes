@@ -21,6 +21,7 @@ bindsym $mod+Shift+q kill
 
 # start program launcher
 bindsym $mod+d exec --no-startup-id rofi -show run
+bindsym $mod+Shift+w exec --no-startup-id rofi -show window
 
 # change focus
 bindsym $mod+j focus left
@@ -50,8 +51,8 @@ bindsym $mod+b workspace back_and_forth
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
-bindsym $mod+h split h;exec notify-send 'tile horizontally'
-bindsym $mod+v split v;exec notify-send 'tile vertically'
+bindsym $mod+h split h;exec notify-send -u low 'tile horizontally'
+bindsym $mod+v split v;exec notify-send -u low 'tile vertically'
 bindsym $mod+q split toggle
 
 # toggle fullscreen mode for the focused container
@@ -282,8 +283,17 @@ bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 0 -q set Master 2db-
 bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
 
 # touchpad on and off controller on laptop with Fn+<touchpad control functional key>
-bindsym XF86TouchpadOn exec --no-startup-id synclient Touchpadoff=0
-bindsym XF86TouchpadOff exec --no-startup-id synclient Touchpadoff=1
+#bindsym XF86TouchpadOn exec --no-startup-id synclient Touchpadoff=0
+#bindsym XF86TouchpadOff exec --no-startup-id synclient Touchpadoff=1
 
+# Screen brightness controls with notification 
+bindsym XF86MonBrightnessUp exec --no-startup-id light -A 5; exec notify-send -u low 'brightness up'
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5; exec notify-send -u low 'brightness down'
+
+# Start polybar
 exec_always --no-startup-id $HOME/.config/polybar/i3wmthemer_bar_launch.sh
 
+#Enable touchpad pointer
+exec --no-startup-id xinput set-prop 13 321 1
+# Start dnust deamon
+exec --no-startup-id dunst -conf $HOME/.config/dunst/dunstrc
