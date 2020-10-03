@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# Author: dmike
+# Description: script to setup dual monitor configuration
+# Usage: i3monitor <second_monitor> extends|duplicate <primary_monitor> 
+#
+#
+
+second=$(xrandr| grep -P ' connected [^p]'  | awk '{print $1}')
+verb=$1
+position=$2
+primary=$(xrandr| grep " connected primary"  | awk '{print $1}')
+
+case "$verb" in
+  extends)
+    xrandr --output "$second" --auto --"$position" "$primary"
+    ;;
+  duplicate)
+    xrandr --output "$second" --auto --same-as "$primary"
+    ;;
+  *)
+    exit 2
+esac
+
