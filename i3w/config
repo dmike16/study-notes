@@ -175,7 +175,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # Set shut down, restart and locking features
 bindsym $mod+0 mode "$mode_system"
-set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+set $mode_system system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id i3exit lock, mode "default"
     bindsym s exec --no-startup-id i3exit suspend, mode "default"
@@ -191,7 +191,7 @@ mode "$mode_system" {
 }
 # Monitor system
 bindsym $mod+m mode "$mode_monitor"
-set $mode_monitor (d)uplicate, (Shift+a)bove
+set $mode_monitor monitor (d)uplicate, (Shift+a)bove
 mode "$mode_monitor" {
   bindsym d exec --no-startup-id i3monitor duplicate
   bindsym Shift+a exec --no-startup-id i3monitor extends above
@@ -227,7 +227,7 @@ mode "resize" {
 }
 
 # Autostart applications
-exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+exec --no-startup-id nitrogen --restore --set-centered; sleep 1; compton -b
 #exec --no-startup-id nm-applet
 # exec --no-startup-id xfce4-power-manager
 # exec --no-startup-id pamac-tray

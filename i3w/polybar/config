@@ -43,9 +43,10 @@ format = <label-state> <label-mode>
 index-sort = true
 wrapping-scroll = false
 
+label-mode=%mode%
 label-mode-padding = 2
 label-mode-foreground = #1c1c22
-label-mode-background = #1c1c22
+label-mode-background = #5c828d
 
 label-focused = %index%
 label-focused-background = #3e646f
