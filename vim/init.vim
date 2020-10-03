@@ -30,6 +30,7 @@ call minpac#add('cespare/vim-toml')
 call minpac#add('peitalin/vim-jsx-typescript')
 call minpac#add('mbbill/undotree')
 call minpac#add('jremmen/vim-ripgrep')
+call minpac#add('tpope/vim-commentary')
 
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 command! PackUpdate call minpac#update()
@@ -105,7 +106,17 @@ nnoremap <Leader>rp :resize 100<CR>
 nnoremap <Leader>ee oif err != nil {<CR>log.Fatalf("%+v\n", err)<CR>}<CR><esc>kkI<esc>
 vnoremap K :m '<-2<CR>gv=gv
 vnoremap J :m '>+1<CR>gv=gv
-" }}}
+
+" Copy paste from clipboard registry
+nnoremap <Leader>cc "+gP
+vnoremap <Leader>cv "+y
+vnoremap <Leader>cx "+x
+" duplicate line
+nnoremap <c-d> yyp
+" save all
+nnoremap <c-s> :wa<cr>
+inoremap <c-s> <esc>:wa<cr>i
+"}}}
 
 "Common start----------- {{{
 syntax on
@@ -176,6 +187,8 @@ augroup END
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " }}}
 " Coc config ---------------{{{
+set statusline^=%{coc#status()}
+
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
