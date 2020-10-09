@@ -1,0 +1,8 @@
+1. B. Forouzan, F. Mosharraf, "Reti di Calcolatori - Un approccio top-down"
+2. An Introduction to Probability Theory and Its Applications
+3. Introduction to Machine Learning with Python: A Guide for Data Scientists
+4. Effective DevOps
+5. Cloud Computing: 2018
+6. Software Engineering 
+7. Artificial Intelligence: A Modern Approach
+8. Get Governed: Building World Class Data Governance Programs 
