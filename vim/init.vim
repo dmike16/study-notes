@@ -6,7 +6,7 @@ packadd minpac
 call minpac#init()
 
 call minpac#add('kristijanhusak/vim-hybrid-material')
-call minpac#add('neoclide/coc.nvim')
+call minpac#add('neoclide/coc.nvim', {'branch': 'release'}) 
 call minpac#add('junegunn/fzf')
 call minpac#add('tpope/vim-projectionist')
 call minpac#add('tpope/vim-dispatch')
@@ -31,6 +31,7 @@ call minpac#add('peitalin/vim-jsx-typescript')
 call minpac#add('mbbill/undotree')
 call minpac#add('jremmen/vim-ripgrep')
 call minpac#add('tpope/vim-commentary')
+call minpac#add('vim-airline/vim-airline')
 
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 command! PackUpdate call minpac#update()
@@ -193,4 +194,12 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent><nowait> <space>j :<c-u>CocNext<CR>
+nnoremap <silent><nowait> <space>k :<c-u>CocPrev<CR>
+"use c-space start completition
+inoremap <silent><expr> <c-space> coc#refresh()
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
 " }}}
