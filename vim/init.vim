@@ -118,6 +118,12 @@ nnoremap <c-d> yyp
 " save all
 nnoremap <c-s> :wa<cr>
 inoremap <c-s> <esc>:wa<cr>i
+" navigate tabs
+nnoremap <c-l> :tabnext<cr>
+inoremap <c-l> <esc>:tabnext<cr>i
+nnoremap <c-h> :tabprevious<cr>
+inoremap <c-h> <esc>:tabprevious<cr>i
+
 "}}}
 
 "Common start----------- {{{
@@ -144,6 +150,8 @@ set cmdheight=2
 set updatetime=50
 set shortmess+=c
 set colorcolumn=80
+set nowritebackup
+set updatetime=300
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 let g:netrw_browse_split = 2
@@ -202,7 +210,38 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
-
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+"Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+" Format all buffer
+nnoremap <leader><c-F> :Format<cr>
+inoremap <leader><c-F> <esc>:Format<cr>i
+nnoremap <leader><c-O> :OR<cr>
+inoremap <leader><c-O> <esc>:OR<cr>i
+"Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " }}}
 " tagbar -------------------{{{
 nmap <F8> :TagbarToggle<CR>
