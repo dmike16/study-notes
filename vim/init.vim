@@ -33,6 +33,7 @@ call minpac#add('jremmen/vim-ripgrep')
 call minpac#add('tpope/vim-commentary')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('preservim/tagbar')
+call minpac#add('neoclide/jsonc.vim')
 
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 command! PackUpdate call minpac#update()
@@ -169,6 +170,12 @@ augroup filetype_js_ts
   autocmd!
   autocmd Filetype javascript nnoremap <buffer> <localleader>c I//<esc>
   autocmd Filetype typescript nnoremap <buffer> <localleader>c I//<esc>
+augroup END
+" }}}
+" json --------- {{{
+augroup filetype_json
+  autocmd!
+  autocmd BufNewFile,BufRead *.json setlocal filetype=jsonc
 augroup END
 " }}}
 " vim start --------------- {{{
