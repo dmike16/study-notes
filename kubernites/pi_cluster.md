@@ -1,4 +1,4 @@
-# Rasbperry PI cluster
+# Rasbperry PI cluster (k3s)
 
 Study project for kubernites on rasperry PI.
 
@@ -45,3 +45,26 @@ Follow docs on K3s site project and a blog https://blog.alexellis.io/test-drive-
 ## Monitor your cluster with prometheus
 
 1. Install node_exporter from github and create a systemd file that start the process.
+
+# Raspberry pi cluster (kubedeam)
+
+## Configuration 
+
+1. Check that MAC address are different from pii node
+ 
+ ```
+  ip link (ipconfig -a)
+ ```
+2. Ensure tha iptable see bridged traffic. Verify that *br_netfilter* is loaded 
+   with `lsmod | grep br_netfilter`
+
+   ```(shell)
+   cat <<EOF sudo tee /etc/sysctl.d/k8s.conf
+   net.bridge.bridge-nf-call-ip6tables = 1
+   net.bridge.bridge-nf-call-iptables = 1
+   EOF
+   sudo sysctl --system
+   ```
+3. install a container runtime (docker, contanerd, CRI-O)
+4. install kubedeam, kubectl, kubelet
+   if cri is different from docker, need to specify the cgroup driver fi different from cgroupfs
