@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 # load datasets
 iris_dataset = load_iris()
 print("Iris keys: ", iris_dataset.keys())
@@ -21,11 +22,10 @@ print("Train labels shap: ", np.array(y_train).shape)
 print("Test data shape: ", np.array(X_test).shape)
 print("Test label shape: ", np.array(y_test).shape)
 
-from matplotlib.colors import ListedColormap
+from common.plot import cm3
 iris_dataframe = pd.DataFrame(X_train, columns=iris_dataset.feature_names)
-cm2 = ListedColormap(['#0000aa', '#ff2020', '#50ff50'])
 pd_plotting.scatter_matrix(iris_dataframe, c=y_train, figsize=(15,15),
-        marker='o', hist_kwds={'bins': 20}, s=60, alpha=.8, cmap=cm2)
+        marker='o', hist_kwds={'bins': 20}, s=60, alpha=.8, cmap=cm3)
 
 #plt.show()
 

@@ -11,3 +11,5 @@ dist/
 targe/
 *.o
 *.lst
+.vscode/
+*.pyc
