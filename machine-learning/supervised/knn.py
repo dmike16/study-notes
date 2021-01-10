@@ -3,9 +3,9 @@ from common.datasets import cancer
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 
-realD = cancer.make()
+X, y = cancer.make()
 X_train, X_test, y_train, y_test = train_test_split(
-    realD.data, realD.target, stratify=realD.target, random_state=66)
+    X, y, stratify=y, random_state=66)
 traing_acc = []
 test_acc = []
 n_settings = range(1, 11)

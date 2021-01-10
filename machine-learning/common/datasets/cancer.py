@@ -1,4 +1,5 @@
 from sklearn.datasets import load_breast_cancer
 
 def make():
-    return load_breast_cancer()
+    bc = load_breast_cancer()
+    return bc['data'], bc['target']
