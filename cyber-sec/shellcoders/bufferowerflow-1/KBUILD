@@ -21,9 +21,8 @@ dep_root := $(empty)
 KERNELDIR := /lib/modules/$(shell uname -r)/build
 mod_name :=
 ASMFLAGS := -f elf64 -g dwarf2
-CFLAGS := -mpreferred-stack-boundary=2 -Wall -g -fno-stack-protector -Wl,-zexecstack
 
-export KERNELDIR mod_name ASMFLAGS CFLAGS
+export KERNELDIR mod_name ASMFLAGS
 
 #  ############################################################################# #
 #  Command definition.
