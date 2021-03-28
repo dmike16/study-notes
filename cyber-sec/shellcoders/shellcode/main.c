@@ -10,8 +10,8 @@
 
 int main()
 {
-    unsigned char shellcodes[] = "\xb8\x01\x00\x00\x00"
-                                 "\xbb\x05\x00\x00\x00"
+    unsigned char shellcodes[] = "\xb0\x01"
+                                 "\xb3\x05"
                                  "\xcd\x80";
         
     int (*ret)() = (int (*)())shellcodes;

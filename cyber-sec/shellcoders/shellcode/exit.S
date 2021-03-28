@@ -8,6 +8,6 @@
   global _start
 
 _start:
-  mov eax,1   ; 1 is the exit syscall number
-  mov ebx,5   ; the status value to return
+  mov al,1   ; 1 is the exit syscall number
+  mov bl,5   ; the status value to return
   int 0x80    ; execute a syscall

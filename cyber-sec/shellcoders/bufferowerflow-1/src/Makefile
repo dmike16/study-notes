@@ -1,3 +1,3 @@
 src := main.c
 
-cflags := -Wall -g -fno-stack-protector -Wl,-zexecstack
+cflags := -no-pie -g -fno-stack-protector -zexecstack
