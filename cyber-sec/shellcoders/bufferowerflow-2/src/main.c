@@ -6,6 +6,7 @@
  * Example of buffer overflow to jmp  to a specific program branch
  * Run with python -c 'print("A"*39+"\xa7\x12\x40\x00\x00\x00\x00\x00")' | ./build/bufferowerflow-2 
  * on a i64 maching
+ * rip in range the range 0x0000000000000000 to 0x00007FFFFFFFFFFF and 0xFFFF800000000000 to 0xFFFFFFFFFFFFFFFF.
  */
 
 int valid_serial(char *psz)
