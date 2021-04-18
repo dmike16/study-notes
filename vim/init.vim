@@ -7,7 +7,6 @@ call minpac#init()
 
 call minpac#add('kristijanhusak/vim-hybrid-material')
 call minpac#add('neoclide/coc.nvim', {'branch': 'release'}) 
-call minpac#add('junegunn/fzf')
 call minpac#add('tpope/vim-projectionist')
 call minpac#add('tpope/vim-dispatch')
 call minpac#add('radenling/vim-dispatch-neovim')
@@ -34,6 +33,12 @@ call minpac#add('tpope/vim-commentary')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('preservim/tagbar')
 call minpac#add('neoclide/jsonc.vim')
+call minpac#add('voldikss/vim-floaterm')
+call minpac#add('junegunn/fzf')
+call minpac#add('junegunn/fzf.vim')
+call minpac#add('puremourning/vimspector')
+call minpac#add('szw/vim-maximizer')
+call minpac#add('arcticicestudio/nord-vim')
 
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 command! PackUpdate call minpac#update()
@@ -41,14 +46,20 @@ command! PackClean call minpac#clean()
 " }}}
 
 "theme start------------- {{{
-set background=dark
-colorscheme hybrid_material
+"set background=dark
+"colorscheme hybrid_material
+colorscheme nord
 "}}}
 
 "Fuzzy search start------------- {{{
 nnoremap <C-p> :<C-u>FZF<CR>
 let g:fzf_layout = {'window': {'width': 0.8, 'height': 0.8}}
 let $FZF_DEFAULT_OPTS='--reverse'
+
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+command! -bang Ideas call fzf#vim#files('~/ideas', <bang>0)
+command! -bar -bang Maps call fzf#vim#maps("n", <bang>0)
 " }}}
 
 "Ggrep start------------- {{{
@@ -175,7 +186,8 @@ augroup END
 " json --------- {{{
 augroup filetype_json
   autocmd!
-  autocmd BufNewFile,BufRead *.json setlocal filetype=jsonc
+  autocmd Filetype json setlocal filetype=jsonc
+  "autocmd BufNewFile,BufRead *.json setlocal filetype=jsonc
 augroup END
 " }}}
 " vim start --------------- {{{
@@ -329,3 +341,22 @@ let g:tagbar_type_typescript = {
   \ ]
 \ }
 "}}}
+" FloatTerm -----------------{{{
+let g:floaterm_width = 0.9
+let g:floaterm_height = 0.9
+
+let g:floaterm_keymap_new    = '<F7>'
+let g:floaterm_keymap_prev   = '<F8>'
+let g:floaterm_keymap_next   = '<F9>'
+let g:floaterm_keymap_toggle = '<F12>'
+" }}}
+" Vim inspector --------------{{{
+" for normal mode - the word under the cursor
+nnoremap <Leader>di <Plug>VimspectorBalloonEval
+" for visual mode, the visually selected text
+xnoremap <Leader>di <Plug>VimspectorBalloonEval
+" }}}
+" Maximizer ------------------ {{{
+let g:maximizer_set_default_mapping = 1
+let g:maximizer_default_mapping_key = '<F3>'
+" }}}
