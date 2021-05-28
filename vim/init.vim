@@ -39,6 +39,7 @@ call minpac#add('junegunn/fzf.vim')
 call minpac#add('puremourning/vimspector')
 call minpac#add('szw/vim-maximizer')
 call minpac#add('arcticicestudio/nord-vim')
+call minpac#add('folke/todo-comments.nvim')
 
 call minpac#add('k-takata/minpac', {'type': 'opt'})
 command! PackUpdate call minpac#update()
@@ -90,10 +91,10 @@ vnoremap <Leader>" <esc>`<i"<esc>`>a"<esc>
 " search selection
 vnoremap <c-r> "0y:%s/<c-r>0//gc<left><left><left>
 " tab navigation
-nnoremap <c-t><up> :tabr<cr>
-nnoremap <c-t><down> :tabl<cr>
-nnoremap <c-t><left> :tabp<cr>
-nnoremap <c-t><right> :tabn<cr>
+nnoremap <leader>t<up> :tabr<cr>
+nnoremap <leader>t<down> :tabl<cr>
+nnoremap <leader>t<left> :tabp<cr>
+nnoremap <leader>t<right> :tabn<cr>
 " switch back to normal mode from terminal mode
 tnoremap <esc> <c-\><c-n>
 " quickfix navigation
