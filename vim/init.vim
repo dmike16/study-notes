@@ -91,10 +91,8 @@ vnoremap <Leader>" <esc>`<i"<esc>`>a"<esc>
 " search selection
 vnoremap <c-r> "0y:%s/<c-r>0//gc<left><left><left>
 " tab navigation
-nnoremap <leader>t<up> :tabr<cr>
-nnoremap <leader>t<down> :tabl<cr>
-nnoremap <leader>t<left> :tabp<cr>
-nnoremap <leader>t<right> :tabn<cr>
+nnoremap <leader>n<left> :tabp<cr>
+nnoremap <leader>m<right> :tabn<cr>
 " switch back to normal mode from terminal mode
 tnoremap <esc> <c-\><c-n>
 " quickfix navigation
