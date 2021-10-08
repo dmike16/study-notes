@@ -4,6 +4,7 @@ fn main() {
     println!("Hello, world! {}", four! {});
 
     println!("{}x5 = {}", 2, times_five!(2));
+    println!("value from a = {}", use_a!(a, a/10))
 }
 
 // First simple empty without matchers
@@ -28,4 +29,15 @@ macro_rules! times_five {
 macro_rules! dead_rules {
     ($e:expr) => {};
     ($i:ident +) => {};
+}
+
+// example of a macro with local variable context
+#[macro_export]
+macro_rules! use_a {
+    ($a:ident, $e:expr) => {
+        {
+            let $a = 20;
+            $e
+        }
+    };
 }
