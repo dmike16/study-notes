@@ -1,5 +1,4 @@
-== Sharing File
-:sectanchors:
+## Sharing File
 
 In concurrent programs is necassary to correctly mange access to shared object.
 The concept that we have to deal with are:
@@ -10,7 +9,7 @@ The concept that we have to deal with are:
 . Immutability
 . Safe Publication
 
-=== Visibility
+### Visibility
 
 The visibility in  a concurrent program is not so obvious. So to ensure it must use synchronization.
 
@@ -31,7 +30,9 @@ manner: where thread A executes a _synchr_ block and after a thread B enters a
 _synchr_ block guarder by the same lock, the values visible to A prior to releasing
 the lock are visible to B upon acquiring the same lock.
 
-NOTE: Lock is not just about mutual exclusion, it also about memory visibility.
+::: tip
+Lock is not just about mutual exclusion, it also about memory visibility.
+:::
 
 Java provides a weaker form of synchronization, _volatile variable_. When a field
 it's defined _volatile_ the compiler and runtime are put on notice that this var
@@ -41,7 +42,9 @@ When a thread A writes to a volatile variable and after a thread B reads that sa
 the values of all variables that were visible to A prior to writing to the volatile
 variable become visible to B after reading the volatile variable.
 
-TIP: Use _volatile_ variable only when they simplify implementing and verifying the synchr policy.
+::: tip
+Use _volatile_ variable only when they simplify implementing and verifying the synchr policy.
+:::
 
 Use them when:
 
@@ -50,9 +53,11 @@ only a single thread update the value;
 * the variable does not participate in invariants with other state variables;
 * locking is not required
 
-IMPORTANT: Locking can guarantee both visibility and atomicity; volatile can only guarantee visibility.
+::: warning
+Locking can guarantee both visibility and atomicity; volatile can only guarantee visibility.
+:::
 
-=== Publication And Escape
+### Publication And Escape
 
 Publishing an object means making it available to code outside of its current scope.
 An object that is published when it should not have been is said to be _escaped_.
@@ -64,16 +69,19 @@ its contents in most case is dangerous
 * passing a reference to an alien method
 * publisinh an inner class instance
 
-WARNING: Publisinh an object may indirectly publish other
+::: warning
+Publisinh an object may indirectly publish other
+:::
 
-TIP: Do not allow the _this_ reference to escape during construction
+::: tip
+Do not allow the _this_ reference to escape during construction
+:::
 
-=== Thread Confinement
+### Thread Confinement
 
 One way to avoid synchronization, when accessing shared data, is to confine data
 to a single thread.
 
-[horizontal]
 Ad-hoc Confinement:: The responsabiity for mantain thread confinement is of implementation,
 so this strategy is fragile. A special case of this strategy is volatile variable.
 Is's safe to perform read-modify-write operations on shared volatile variable as long as
@@ -84,11 +92,13 @@ ThreadLocal:: Java class that allow to associate a per-thread value wiht a value
 object. To maintaint a separete copy of the value TheadLocal provides `get` and `set`
 method, so a `get` return the most recent value for the current thread.
 
-=== Immutability
+### Immutability
 
 An immutable object is one which state cannot be changed after construction.
 
-NOTE: An immutable object is always thread-safe.
+::: tip
+An immutable object is always thread-safe.
+:::
 
 An object is immutable if:
 
@@ -96,10 +106,12 @@ An object is immutable if:
 * all fields are final
 * it's properly constructed (the _this_ reference does not escape during construction)
 
-TIP: Just as is a good practice to make al the fileds private unless they need
+::: tip
+Just as is a good practice to make al the fileds private unless they need
 greater visibility, it is a good practice to make all field final unless they need to be mutable.
+:::
 
-=== Safe Publication
+### Safe Publication
 
 We need safe publication when we want share an object between thread in a safely
 way. Simply storing an object into a public filed it's not a safe publishing mechanism,
@@ -109,7 +121,9 @@ the state of the object is visible to the consuming thread; so synchnization is 
 
 But if the object is *immutable*  we don't need synchronization to publish the object.
 
-NOTE: Immutable object can be safely published without synchronitation.
+::: tip
+Immutable object can be safely published without synchronitation.
+:::
 
 For mutable object safe publication requires synchronization, for both consuming and producer thread.
 
@@ -122,5 +136,7 @@ A properly constructed object can be safely published by:
 * storing a reference to it into a final field of properly constructed object
 * storing a reference to it into a field guarded by a lock
 
-NOTE: If an object is mutable, safe publication ensure only visibility of the published
+::: tip
+If an object is mutable, safe publication ensure only visibility of the published
 state so synchronization must be used every time a thread accesses the obejct.
+:::

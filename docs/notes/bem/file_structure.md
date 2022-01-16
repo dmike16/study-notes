@@ -1,5 +1,4 @@
-== File Structure
-:sectanchors:
+## File Structure
 
 The BEM methodology also applies to the project file structure. Not only the
 implementation it's divided in indipendent block but the implementation of
@@ -7,7 +6,6 @@ different block it's divided into indipendent files. Before the code is sent
 to the broswer this blocks are assembled and optiomized. That way we separte the
 human-readable code form the one that is sent to the broswer.
 
-.Codebase
 * A block implementation is divied into separates files
 * A block is made of a set of files that is determined by the technologies used (input.css,input.js)
 * Optional elements and modifiers are stored in separate files
@@ -17,9 +15,8 @@ human-readable code form the one that is sent to the broswer.
 * A project is divided into redefinition level
 * The final implementation of a block can be split into redefinition levels.
 
-=== Example of file structure
+### Example of file structure
 
-.Nested
 * For every block there is a directory
 * The directory is named after the block
 * A block implementation is divided into separate files
@@ -32,8 +29,7 @@ human-readable code form the one that is sent to the broswer.
 * Modifiers and element are stored in separat files and are grouped into accordingly named subdirectories
 * If there are modifiers that differ in value, the shared code can be stored in a common file with no modifier value.
 
-[source]
-----
+```
 blocks/
     input/
         _type/                                 # type modifier directory
@@ -56,14 +52,12 @@ blocks/
         button.css
         button.js
         button.png
-----
+```
 
-.Flat
 * Blocks don't have the own directory
 * Optional element and modifiers are in separate files
 
-[source]
-----
+```
 blocks/
     input_type_search.js
     input_type_search.bemhtml.js
@@ -75,14 +69,11 @@ blocks/
     button.js
     button.bemhtml.js
     button.png
-----
-
-.Flex
+```
 * One block per directory
 * Elements and modifiers are implemented in separete files
-+
-[source]
-----
+
+```
 blocks/
     input/
         input_layout_horiz.css
@@ -91,37 +82,35 @@ blocks/
         input.css
         input.js
     button/
-----
-+
+```
+
 * One block per directory
 * Elements and modifiers are implmented in block files
-+
-[source]
-----
+
+```
 blocks/
     input/
         input.css
         input.js
     button/
-----
-+
+```
+
 * Blocks don't have their block directories
 * Elements and modifiers are implemented in block files
-+
-[source]
-----
+
+```
 blocks/
     input.css
     input.js
     button.css
     button.js
-----
-+
+```
+
 * Blocks don't have their own directories
 * Elements and modifiers are implemented in separte files
-+
-[source]
-----
+
+
+```
 blocks/
     input_type_search.js
     input_type_search.bemhtml.js
@@ -133,4 +122,4 @@ blocks/
     button.js
     button.bemhtml.js
     button.png
-----
+```

@@ -17,6 +17,8 @@ export default defineConfig4CustomTheme<DefaultThemeConfig>({
       {text: 'Notes', link: '/notes/'}
     ],
     sidebar: {
+      '/notes/concurrency/': concurrencySideBar(),
+      '/notes/bronet/': bronetSideBar(),
       '/notes/bem/': bemSideBar(),
       '/notes/': notesSideBar(),
 
@@ -45,6 +47,8 @@ function notesSideBar() {
       sidebarDepth: 1,
       children: [
         ['/notes/bem/', 'BEM'] as SidebarItem4ShortcutTuple
+        , ['/notes/bronet/', 'Bronet'] as SidebarItem4ShortcutTuple
+        , ['/notes/concurrency/', 'Concurrency'] as SidebarItem4ShortcutTuple
       ]
     }
   ]
@@ -59,6 +63,35 @@ function bemSideBar() {
     children: [
       [`${parent}${current}/block`, 'Block'] as SidebarItem4ShortcutTuple,
       [`${parent}${current}/element`, 'Element'] as SidebarItem4ShortcutTuple,
+      [`${parent}${current}/file_structure`, 'File Structure'] as SidebarItem4ShortcutTuple,
+      [`${parent}${current}/mix`, 'Mix'] as SidebarItem4ShortcutTuple,
+      [`${parent}${current}/modifier`, 'Modifier'] as SidebarItem4ShortcutTuple,
+      [`${parent}${current}/redefinitions_level`, 'Redefinition Level'] as SidebarItem4ShortcutTuple,
     ]
   }]
+}
+
+function bronetSideBar() {
+  const parent = '/notes';
+  const current = '/bronet';
+  return [{
+    title: 'Bronet',
+    path: `${parent}${current}/`,
+    children: [
+      [`${parent}${current}/latencyandband`, 'Latency'] as SidebarItem4ShortcutTuple
+    ]
+  }];
+}
+
+function concurrencySideBar() {
+  const parent = '/notes';
+  const current = '/concurrency';
+  return [{
+    title: 'Concurrency',
+    path: `${parent}${current}/`,
+    children: [
+      [`${parent}${current}/composing-object`, 'Composing'] as SidebarItem4ShortcutTuple
+      , [`${parent}${current}/sharing-file`, 'Sharing file'] as SidebarItem4ShortcutTuple
+    ]
+  }];
 }
