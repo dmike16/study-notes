@@ -4,6 +4,7 @@ import {DefaultThemeConfig, defineConfig4CustomTheme, SidebarItem4Shortcut, Side
 export default defineConfig4CustomTheme<DefaultThemeConfig>({
   title: 'Study Notes',
   description: 'Collections of notes taken during my studies',
+  base: '/study-notes/',
   theme: 'default-prefers-color-scheme',
   themeConfig: {
     lastUpdated: 'Last Updated',
