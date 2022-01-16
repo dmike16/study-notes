@@ -1,0 +1,17 @@
+{
+  "name": "study-notes",
+  "packageManager": "yarn@3.1.1",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.3.0",
+    "@vuepress/shared-utils": "^1.9.5",
+    "escape-html": "^1.0.3",
+    "lru-cache": "^6.0.0",
+    "markdown-it-emoji": "^2.0.0",
+    "vuepress": "^1.9.5",
+    "vuepress-theme-default-prefers-color-scheme": "^2.0.0"
+  }
+}
