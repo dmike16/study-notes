@@ -1,13 +1,11 @@
-=== Register a Service Worker
-:sectanchors:
+## Register a Service Worker
 
 First thing to do is register a service worker. This is done cheking if
 `serviceWorker in Navigator` and `PushMenager in window`. The first is relative
 to ServiceWorker functinality and the latter to PushMessaging. If the check pass
 register the serviceWorker using the `register` method from Service Worker Api.
 
-[source,javascript]
-----
+``` javascript
 if ('serviceWorker' in navigator && 'PushManager' in window) {
   console.log('Service Worker and Push are supported');
 
@@ -24,4 +22,4 @@ if ('serviceWorker' in navigator && 'PushManager' in window) {
   console.warn('Push messaging is not supported');
   pushButton.textContent = 'Push Not Supported';
 }
-----
+```

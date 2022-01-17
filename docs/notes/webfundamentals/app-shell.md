@@ -1,9 +1,8 @@
-== App Shell Model
+## App Shell Model
 
 *App shell* is a way to build PWA, in order to create instantly loading application.
 The app shell contains only the skeloton of app UI, with no data.
 
-.Benefits
 * Repeat visit are very quick, becouse staic UI asset ara cached.
 * Create expiriences similar to native app.
 * Miminal data usage.
@@ -11,9 +10,7 @@ The app shell contains only the skeloton of app UI, with no data.
 The staring point to build an app shell is the separation between static UI and dynaminc content.
 The app shuold load the simplest shell possible, but include enough meaningful page content.
 
-.Index Html
-[source, html]
-----
+``` html
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,11 +57,9 @@ The app shuold load the simplest shell possible, but include enough meaningful p
   </script>
 </body>
 </html>
-----
+```
 
-.Cache app shell manually
-[source,javascript]
-----
+``` javascript
 var cacheName = 'shell-content';
 var filesToCache = [
   '/css/styles.css',
@@ -85,11 +80,9 @@ self.addEventListener('install', function(e) {
     })
   );
 });
-----
+```
 
-.Cache using sw-precache
-[source,javascript]
-----
+``` javascript
 gulp.task('generate-service-worker', function(callback) {
   var path = require('path');
   var swPrecache = require('sw-precache');
@@ -100,4 +93,4 @@ gulp.task('generate-service-worker', function(callback) {
     stripPrefix: rootDir
   }, callback);
 });
-----
+```

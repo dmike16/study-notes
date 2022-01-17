@@ -1,4 +1,4 @@
-=== Good Mobile Site Practice
+## Good Mobile Site Practice
 Home Page and site navigation:: 
  * focues home page on connection user to the site content.
  * make secondary tasks available from menu or "below the fold".

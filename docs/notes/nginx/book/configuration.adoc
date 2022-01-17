@@ -1,7 +1,0 @@
-== Block Configuration
-Https Configuration
-
-[source, nginx]
-----
-include::ssl[]
-----

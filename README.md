@@ -2,6 +2,8 @@
 
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
+[![Deploy][gh-page-env-shield]][gh-page-url]
+![Build][second-brain-wf]
 
 
 
@@ -73,3 +75,7 @@ Project Link: [https://github.com/dmike16/study-notes](https://github.com/dmike1
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/michele-cipolla
 [vuepress]: https://vuepress.vuejs.org/
+[second-brain-wf]: https://img.shields.io/github/workflow/status/dmike16/study-notes/second_brain.svg?style=for-the-badge
+[gh-page-env-shield]: https://img.shields.io/github/deployments/dmike16/study-notes/github-pages?label=deploy&style=for-the-badge
+[gh-page-url]: https://dmike16.github.io/study-notes/
+

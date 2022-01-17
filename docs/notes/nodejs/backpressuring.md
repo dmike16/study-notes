@@ -1,5 +1,4 @@
-== Backpressuring in Stream
-:sectanchors:
+## Backpressuring in Stream
 
 `Backpressure` is a problem that can arise during data handling; when the recieving
 end of the transfer has complex operations, or is slower, then the data from the
@@ -20,7 +19,7 @@ data is emptied, a `drain` event will be emitted and resume the data flow.
 
 Example of `pipe` method that implements backpressure
 
-====
+```
                                                      +===================+
                          x-->  Piping functions   +-->   src.pipe(dest)  |
                          x     are set up during     |===================|
@@ -33,7 +32,7 @@ Example of `pipe` method that implements backpressure
 +--------v----------+    x     respective callbacks. | .on('error', cb)  |
 |  Readable Stream  +----+                           | .on('finish', cb) |
 +-^-------^-------^-+    |                           | .on('end', cb)    |
-^       |       ^      |                           +-------------------+
+^       |       ^      |                             +-------------------+
 |       |       |      |
 |       ^       |      |
 ^       ^       ^      |    +-------------------+         +=================+
@@ -63,7 +62,7 @@ Example of `pipe` method that implements backpressure
                                      |            <---^---------------------<
                                      +============+
 
-====
+```
 
 When creating custom `Stream` we shuold respect backpressure and
 

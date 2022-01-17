@@ -1,12 +1,10 @@
-== Event Loop
-:sectanchors:
+## Event Loop
 
 Event loop allow Node.js to perform non-blocking I/O operations,by offloading operations
 to the system kernel. When these background complete, the kernel tells to Node.js
 so the appropriate callback may be addede to the ''poll'' queque.
 
-[ditaa,"event-loop"]
-....
+```
     +----------------------------+
 +-> |          Timers            |
 |   +-------------+--------------+
@@ -35,4 +33,4 @@ so the appropriate callback may be addede to the ''poll'' queque.
 |   +----------------------------+
 |-- +        Close callbacks     |
     +----------------------------+
-....
+```

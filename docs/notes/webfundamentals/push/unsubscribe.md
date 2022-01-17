@@ -1,11 +1,9 @@
-=== Unsubscribe
-:sectanchors:
+## Unsubscribe
 
 To unsubscribe a user from web push notification, we have to get the subscribtion
 objct and call the `unsubscribe()` method:
 
-[source,javascript]
-----
+``` javascript
 function unsubscribeUser(){
     swReg.pushManager.getSubscription().then((sub)=>{
       if(sub){
@@ -20,4 +18,4 @@ function unsubscribeUser(){
       updateBtn();
     });
   }
-----
+```

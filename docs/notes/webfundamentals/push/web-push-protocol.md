@@ -1,10 +1,8 @@
-=== Web Push Protocol
-:sectanchors:
+## Web Push Protocol
 
-.WebPush Flow
-image::web-push.svg[]
+![WebPush Flow](@webfundImages/web-push.svg)
 
-==== Web Push VAPID
+### Web Push VAPID
 
 *VAPID*(Voluntary Application Server Identifier) it's a system whereby an application
 server can identify itself to the push server. The step to build a VAPID are:
@@ -19,29 +17,26 @@ generated above using a ES256 algorithm
 * *Authoritazion*: `Web Push <JWT>`
 * *Crypto-Key*: `ps56ecdsa=<public-key>`
 
-.VAPID
-image::vapid.svg[]
+![VPID](@webfundImages/vapid.svg)
 
-==== Jason Web Token (JWT)
+### Jason Web Token (JWT)
 
 The JWT is a way of sending informations to third party so that the reciver can
 validate who sent it. A signed JWT is just three strings diveded by a dot.
 
-.JWT
-image::jwt.svg[]
+![JWT](@webfundImages/jwt.svg)
 
 * The first string it's a json url-base64 encoded and rappresents information
 about the JWT for web push must be :
-+
-[source,javascript]
-----
+
+``` json
 {
   "aud": "<endpoint>",
   "exp": "<expiration time in seconds>",
   "sub": "mailto:<email@email.com> | <url>"
 }
-----
-+
+```
+
 The expiration time must be no longer 24 hours.
 
 * the third string is the signature and it's the result of taking the first two
@@ -50,8 +45,7 @@ using P-256 curve and the SHA-256 algorithm.
 
 Then we have to create two header
 
-[example]
-====
-Authorization: 'WebPush <JWT Info>.<JWT Data>.<Signature>' +
+```
+Authorization: 'WebPush <JWT Info>.<JWT Data>.<Signature>' 
 Crypto-Key: p256ecdsa=<URL Safe Base64 Public Application Server Key>
-====
+```

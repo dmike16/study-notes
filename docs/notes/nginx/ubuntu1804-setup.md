@@ -1,17 +1,15 @@
-== Ubuntu 18.04 Configuration
+## Ubuntu 18.04 Configuration
 
 Install from package repo:
 
-[source,shell]
-----
+``` bash
     sudo apt update
     sudo apt install nginx
-----
+```
 
 Adjust the firwall, we can chose between different Configuration
 
-[source, shell]
-----
+``` bash
 sudo ufw app list
 
 Output
@@ -20,35 +18,32 @@ Available applications:
   Nginx HTTP
   Nginx HTTPS
   OpenSSH
-----
+```
 
 Chosing HTTPS:
 
-[source,shell]
-----
+``` bash
 sudo ufw allow 'Nginx HTTPS'
-----
+```
 
 Check server status:
-[source, shell]
-----
+
+``` bash
 systemctl status nginx
-----
+```
 
 Some commands:
 
-[source, shell]
-----
+``` bash
 sudo systemctl start nginx
 sudo systemctl stop nginx
 sudo systemctl reload nginx
 sudo systemctl disable nginx
 sudo systemctl enable nginx
-----
+```
 
 After edit nginx configuration file, we can check its syntax with:
 
-[source,shell]
-----
+``` bash
 sudo nginx -t
-----
+```
