@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: @project.name@
+    version: @project.version@
+  mvc:
+    problemdetails:
+      enabled: true
+
+logging:
+  level:
+    root: INFO
+    org.example.com: DEBUG
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+server:
+  shutdown: "graceful"
